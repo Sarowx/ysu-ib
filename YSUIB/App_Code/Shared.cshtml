@@ -1,0 +1,14 @@
+﻿@functions{
+    public static string[] getUniqueArray(List<string> items)
+    {
+        List<string> uniqueItems = new List<string>();
+        items.ForEach(s =>
+        {
+            if (!uniqueItems.Exists(t => { return t == s; }))
+            {
+                uniqueItems.Add(s);
+            }
+        });
+            return uniqueItems.ToArray();
+    }
+}

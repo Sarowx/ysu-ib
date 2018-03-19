@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="us-ascii" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ԵՊՀ ԻՄ</title>
+    @Styles.Render("~/Content/site.css")
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @Styles.Render("~/Content/font-awesome/css/font-awesome.min.css")
+    @Styles.Render("~/Content/w3.css")
+
+    @if (ViewBag.Styles != null)
+    {
+        @Scripts.Render(Shared.getUniqueArray(ViewBag.Styles))
+    }
+
+    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/Scripts/main.js")
+
+    @if (ViewBag.Scripts != null)
+    {
+        @Scripts.Render(Shared.getUniqueArray(ViewBag.Scripts))
+    }
+
+</head>
+<body>
+
+    <div class="header">
+        <div class="top">
+            <nav class="navbar navbar-inverse">
+                <div class="container">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Գլխավոր","Index","Home")</li>
+                        <li><a href="http://www.ysu.am/main/">ԵՊՀ</a></li>
+                        <li>@Html.ActionLink("Ֆակուլտետներ", "Facultyes", "Home")</li>
+                        <li>@Html.ActionLink("Նորություններ", "News", "Home")</li>
+                        <li>@Html.ActionLink("Դիմորդ", "Applicant", "Home")</li>
+                        <li>@Html.ActionLink("Աշխատակազմ", "Staff", "Home")</li>
+                    </ul>
+                    <form class="navbar-form navbar-right" name="form1">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Փնտրել</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+    @RenderBody()
+    <footer class="footer">
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-3">
+                    <img src="~/img/logo-hy.png" alt="">
+                </div>
+                <div class="col-md-3">
+                    <ul class="list-group">
+                        <li class="list-group-item">@Html.ActionLink("ՖԱԿՈՒԼՏԵՏՆԵՐ", "Facultyes", "Home")</li>
+                        <li class="list-group-item">@Html.ActionLink("ԲՆԱԿԱՆ ԳԻՏՈՒԹՅՈՒՆՆԵՐ", "Facultyes", "Home",new { faculty = 1},null)</li>
+                        <li class="list-group-item">@Html.ActionLink("ՀՈՒՄԱՆԻՏԱՐ ԳԻՏՈՒԹՅՈՒՆՆԵՐ", "Facultyes", "Home", new { faculty = 2 }, null)</li>
+                        <li class="list-group-item">@Html.ActionLink("ՏՆՏԵՍԱԳԻՏՈՒԹՅՈՒՆ", "Facultyes", "Home", new { faculty = 3 }, null)</li>
+                        <li class="list-group-item">@Html.ActionLink("ԿԻՐԱՌԱԿԱՆ ԱՐՎԵՍՏ", "Facultyes", "Home", new { faculty = 4 }, null)</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <ul class="list-group">
+                        <a href="#"> <li class="list-group-item ">ԱՄԲԻՈՆՆԵՐ </li></a>
+                        <a href="#"><li class="list-group-item">ԲՆԱԿԱՆ ԳԻՏՈՒԹՅՈՒՆՆԵՐ </li></a>
+                        <a href="#"><li class="list-group-item">ՀՈՒՄԱՆԻՏԱՐ ԳԻՏՈՒԹՅՈՒՆՆԵՐ </li></a>
+                        <a href="#"><li class="list-group-item">ՏՆՏԵՍԱԳԻՏՈՒԹՅՈՒՆ </li></a>
+                        <a href="#"><li class="list-group-item">ԿԻՐԱՌԱԿԱՆ ԱՐՎԵՍՏ </li></a>
+
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                        <br><br><br><br>
+                        <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                        <a class="a2a_button_facebook"></a>
+                        <a class="a2a_button_twitter"></a>
+                        <a class="a2a_button_google_plus"></a>
+                    </div>
+                    <script async src="https://static.addtoany.com/menu/page.js"></script>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

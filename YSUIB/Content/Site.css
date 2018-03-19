@@ -1,0 +1,446 @@
+﻿body
+a {
+    font-size: 14px;
+    text-decoration: none!important;
+}
+a:hover {
+    text-decoration: none;
+    color: #000;
+}
+a>li:hover {
+    text-decoration: none;
+    color:  #cacaca;
+}
+img {
+    object-fit: cover;
+}
+h2, h3 {
+    font-weight: 900!important;
+}
+.header .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+    background-color: #496b4b;
+    }
+.thumbnail {
+    box-shadow: 0px 1px 28px #888888;
+    border: 1px solid #496b4b;
+}
+.news .thumbnail img {
+    height: 200px;
+    width: 350px;
+}
+.top {
+    height: 84px;
+}
+.logo>img {
+    width: 137px;
+    margin: 22px;
+}
+ .ysu>h4 {
+     margin-top: 18px;
+     line-height: 2em;
+     color: #fff;
+     font-weight: bolder;
+}
+.news {
+    margin-bottom: 25px;
+}
+.logo2 {
+    margin: -34px;
+    float: right;
+}
+@media screen and (min-width: 900px) {
+
+.header .navbar-inverse {
+    box-shadow: 6px 9px 14px #888888;
+    position: fixed;
+    z-index: 99999999999999999;
+    width: 100%;
+}
+}
+.header .btn-default:active:hover
+{
+    background-color: #496b4b;
+
+}
+.header .btn-default {
+    color: #cacaca;
+    background-color: #496b4b;
+    border-color: #3c763d;
+}
+* {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+  position: relative;
+  margin: auto;
+}
+
+.mySlides {
+    display: none;
+}
+.content .mySlides img {
+    width: 100%;
+    height: 500px;
+}
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: content;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor:pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: content;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.topnav .icon {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav a:not(:first-child) {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+      }
+}
+
+.content .w3-bar-block .w3-bar-item {
+    text-decoration: none;
+    border-bottom: 1px solid #496b4b;
+    padding: 16px 16px!important;
+
+}
+.content .w3-bar-block .w3-bar-item:hover {
+    background-color: #496b4b!important;
+    color: #fff;
+
+}
+.content .w3-blue {
+    background-color: #496b4b!important;
+
+}
+.content .w3-blue .w3-hover-blue {
+    background-color: #496b4b!important;
+    color: #fff;
+}
+.content .w3-bar-block {
+    background-color: #fff;
+}
+.content .w3-button:hover {
+    background-color: #496b4b!important;
+    color:#fff!important;
+}
+.thumb {
+    width: auto;
+    height: auto;
+    border-bottom: 1px solid #496b4b;
+    border: none;
+}
+.content .thumbnail {
+    margin-top: 8px;
+}
+.thumbnail .thumb img {
+    width: 100%;
+}
+.thumbnail .thumb .more {
+    padding: 15px 5px;
+}
+/*.pic {
+    background-image: url(../img/logo-hy.png);
+    background-repeat: no-repeat;
+    height: 250px;
+    margin-bottom: 10px;
+}*/
+.footer {
+    background-image: url(../img/elegant-grey-illumination-backgroundpresentationspowerpoint-backgrounds-high-resolution-images-free-stock-photos-desktop-images-iphone-wallpaper-colorful-widescreen-hd-artwork-1920x1080.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    color:  #cacaca;
+}
+.footer .list-group-item:last-child {
+    border: none;
+}
+.footer li {
+    background: none;
+}
+
+.news .text-center {
+    color: #496b4b;
+    padding: 15px;
+    background-color: #f2f2f1;
+    margin-bottom: 40px;
+    background-image: url(../img/2.jpg);
+    background-attachment: fixed;
+
+}
+.eph {
+    margin-bottom: 30px;
+    background-image: url(../img/creative-writeing.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: cover;
+
+}
+.dropdown {
+    position: relative;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    left:100%;
+    top:0;
+    min-width: 160px;
+}
+
+.dropdown-content a {
+    border-bottom: 1px solid #496b4b;
+    color: black;
+    padding: 5px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.content .form-control {
+    border: 1px solid #496b4b!important;
+    height: 37px!important;
+}
+.form-title {
+        padding-bottom: 15px;
+}
+.content .btn {
+        margin-bottom: 38px;
+        padding: 9px 50px;
+        border: 1px solid #496b4b!important;
+
+}
+.content .btn-default:hover {
+    color: #fff;
+    background-color: #4a6b4b!important;
+    border-color: #ffffff;
+}
+#map {
+        height: 400px;
+        width: 100%;
+        margin-bottom: 50px;
+
+       }
+.cont .contact  {
+    text-decoration: none;
+    border-bottom: 1px solid #496b4b;
+    padding: 16px 16px!important;
+}
+.count
+{
+    text-align:center;
+
+}
+.div-count
+{
+    font-size: 51px;
+    font-weight: normal;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    overflow:hidden;
+    font-family:"Georgia", Courier, monospace;
+    padding: 0;
+    position: relative;
+}
+.div-detail
+{
+    color: #000;
+    padding-top:10px;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+
+}
+ .our {
+    color: #496b4b
+}
+.sum {
+    background-image: url(../img/2.jpg);
+    margin-bottom: 50px;
+    background-attachment: fixed;
+
+}
+.list-group-item {
+    padding: 7px 15px!important;
+}
+
+/****************************Faculties/********************************************
+***********************************************************************************/
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 50px;
+
+}
+
+#customers td, #customers th {
+    border: 1px solid #496b4b;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #496b4b; color: #fff;}
+
+#customers tr:hover {background-color: #fff;
+color:#496b4b; }
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+.about {
+    border-bottom: 1px solid #496b4b;
+    margin-top: 25px;
+}
+.facultet  {
+    color: #fff;
+    margin-bottom: 40px;
+    font-size: 18px;
+    background-image: url(../img/pexels-photo-355988.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    text-align: justify;
+}
+.overlay {
+    padding: 50px;
+    z-index: 1;
+    background-color: rgba(0,0,0, 0.5);
+}
+.kir {
+    background-image: url(../img/nav.jpg);
+}
+.hum {
+    background-image: url(../img/self-improvement-books.jpg);
+}
+.tnt {
+    background-image: url(../img/hand-holding-growing-pile-of-money-economic-growth.jpg);
+}
