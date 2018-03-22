@@ -12,16 +12,17 @@ namespace YSUIB.Models.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class UserRating
+    public partial class TranslationText
     {
-        public long Id { get; set; }
-        public long FromUserId { get; set; }
-        public long ToUserId { get; set; }
-        public long CriterionId { get; set; }
-        public double RatePercent { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TranslationText()
+        {
+            this.Entries = new HashSet<TranslationTextEntry>();
+        }
     
-        public virtual RatingCriterion RatingCriterion { get; set; }
-        public virtual User UserFrom { get; set; }
-        public virtual User UserTo { get; set; }
+        public long Id { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TranslationTextEntry> Entries { get; set; }
     }
 }

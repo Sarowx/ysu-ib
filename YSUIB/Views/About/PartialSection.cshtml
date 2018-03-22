@@ -1,0 +1,59 @@
+﻿<div class="container ">
+    <h2 class="text-center our">Մենք ունենք</h2>
+
+    <div class="row sum">
+        <div class="count col-lg-4">
+            <br>
+            <span class="div-count">1200</span>
+            <p class="div-detail">  <i class="fa fa-users" aria-hidden="true"></i>    Ուսանող</p>
+        </div>
+        <div class="count col-lg-4">
+            <br>
+            <span class="div-count">133</span>
+            <p class="div-detail"><i class="fa fa-users" aria-hidden="true"></i>   Դասախոս</p>
+        </div>
+        <div class="count col-lg-4">
+            <br>
+            <span class="div-count">99</span>
+            <p class="div-detail"><i class="fa fa-users" aria-hidden="true"></i>    Աշխատակից</p>
+        </div>
+    </div>
+</div>
+<div class="container cont">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="contact">
+                <div class="col-md-3 ">Հեռ․:</div><div class="col-md-9">(+374) 263 40050, 263 40035</div>
+                <br><br>
+            </div><br>
+            <div class="contact">
+                <div class="col-md-3">Ֆաքս:</div><div class="col-md-9">(+374) 263 32202</div>
+                <br><br>
+            </div><br>
+            <div class="contact">
+                <div class="col-md-3">Էլ-հասցե:</div><div class="col-md-9">ysu_ib@ysu.am, ijevan@ysu.am</div>
+                <br><br>
+            </div><br>
+            <div class="col-md-3">Հասցե:</div><div class="col-md-9">Տավուշի մարզ, ք.Իջևան 4001, Ուսանողական 3</div>
+        </div>
+        <div class="col-md-7 ">
+            <div id="map"></div>
+            <script>
+              function initMap() {
+                var uluru = {lat: 40.8713703, lng: 45.1430799};
+                var map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 15,
+                  center: uluru
+                });
+                var marker = new google.maps.Marker({
+                  position: uluru,
+                  map: map
+                });
+              }
+            </script>
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRgwaw5Q4cE3gj_Y2yzQp6IA6Y7jFZCXo&callback=initMap">
+            </script>
+        </div>
+    </div>
+</div>

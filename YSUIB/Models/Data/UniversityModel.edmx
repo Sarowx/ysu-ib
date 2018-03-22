@@ -5,22 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="UniversityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Ambions">
+        <EntityType Name="Ambion">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FacultyId" Type="bigint" Nullable="false" />
-          <Property Name="NameT" Type="bigint" Nullable="false" />
+          <Property Name="FacultyId" Type="bigint" />
+          <Property Name="NameT" Type="bigint" />
+          <Property Name="ManagerWorkerId" Type="bigint" />
         </EntityType>
-        <EntityType Name="ArticleCategories">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NameT" Type="bigint" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Articles">
+        <EntityType Name="Article">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -36,25 +30,32 @@
           <Property Name="DescribtionTT" Type="bigint" />
           <Property Name="TextTT" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="BookCategories">
+        <EntityType Name="ArticleCategory">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NameT" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="Books">
+        <EntityType Name="Book">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FilePath" Type="nvarchar" MaxLength="2048" Nullable="false" />
+          <Property Name="FileId" Type="bigint" Nullable="false" />
           <Property Name="StoredDateTime" Type="datetime" />
           <Property Name="CategoryId" Type="bigint" Nullable="false" />
           <Property Name="NameT" Type="bigint" Nullable="false" />
           <Property Name="DescribtionTT" Type="bigint" />
         </EntityType>
-        <EntityType Name="Classrooms">
+        <EntityType Name="BookCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameT" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Classroom">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -63,7 +64,7 @@
           <Property Name="FacultyId" Type="bigint" Nullable="false" />
           <Property Name="PictureId" Type="bigint" />
         </EntityType>
-        <EntityType Name="Courses">
+        <EntityType Name="Course">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -72,28 +73,28 @@
           <Property Name="StartYear" Type="date" Nullable="false" />
           <Property Name="EndYear" Type="date" Nullable="false" />
         </EntityType>
-        <EntityType Name="Facultyes">
+        <EntityType Name="Faculty">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DekanStaffId" Type="bigint" Nullable="false" />
-          <Property Name="NameT" Type="bigint" Nullable="false" />
+          <Property Name="DekanWorkerId" Type="bigint" />
+          <Property Name="NameT" Type="bigint" />
         </EntityType>
-        <EntityType Name="Files">
+        <EntityType Name="File">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FilePath" Type="nvarchar" MaxLength="2048" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="2048" Nullable="false" />
           <Property Name="StoredDateTime" Type="datetime" />
         </EntityType>
-        <EntityType Name="IcoFiles">
+        <EntityType Name="Icon">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FilePath" Type="nvarchar" MaxLength="2048" Nullable="false" />
+          <Property Name="FileId" Type="bigint" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Languages">
@@ -101,11 +102,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NameShort" Type="nchar" MaxLength="3" Nullable="false" />
-          <Property Name="NameOriginal" Type="bigint" />
+          <Property Name="Code" Type="nchar" MaxLength="2" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IconId" Type="bigint" />
         </EntityType>
-        <EntityType Name="Lessons">
+        <EntityType Name="Lesson">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -114,36 +115,57 @@
           <Property Name="ProfessorId" Type="bigint" Nullable="false" />
           <Property Name="Year" Type="int" Nullable="false" />
           <Property Name="Semester" Type="int" Nullable="false" />
-          <Property Name="Week" Type="int" Nullable="false" />
-          <Property Name="WeekDay" Type="int" Nullable="false" />
+          <Property Name="WeekId" Type="bigint" Nullable="false" />
+          <Property Name="WeekDayId" Type="bigint" Nullable="false" />
           <Property Name="Hour" Type="int" Nullable="false" />
           <Property Name="ClassroomId" Type="bigint" Nullable="false" />
+          <Property Name="SubjectId" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="Pictures">
+        <EntityType Name="Link">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FilePath" Type="nvarchar" MaxLength="2048" Nullable="false" />
-          <Property Name="AltT" Type="bigint" Nullable="false" />
-          <Property Name="StoredDateTime" Type="datetime" />
+          <Property Name="Controller" Type="nvarchar" MaxLength="50" />
+          <Property Name="Action" Type="nvarchar" MaxLength="50" />
+          <Property Name="OptionsJSON" Type="nvarchar(max)" />
+          <Property Name="ExternalUrl" Type="nvarchar" MaxLength="2048" />
         </EntityType>
-        <EntityType Name="Professors">
+        <EntityType Name="MenuItem">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
-          <Property Name="StaffId" Type="bigint" Nullable="false" />
-          <Property Name="DegreeTree" Type="bigint" Nullable="false" />
+          <Property Name="NameT" Type="bigint" Nullable="false" />
+          <Property Name="LinkId" Type="bigint" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="RatingCriteria">
+        <EntityType Name="Picture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileId" Type="bigint" Nullable="false" />
+          <Property Name="AltT" Type="bigint" Nullable="false" />
+          <Property Name="StoredDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Professor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="WorkerId" Type="bigint" Nullable="false" />
+          <Property Name="DegreeTree" Type="bigint" Nullable="false" />
+          <Property Name="AmbionId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RatingCriterion">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NameT" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="Specializations">
+        <EntityType Name="Specialization">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -151,16 +173,7 @@
           <Property Name="FacultyId" Type="bigint" Nullable="false" />
           <Property Name="NameT" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="Staff">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="bigint" Nullable="false" />
-          <Property Name="StartDate" Type="date" Nullable="false" />
-          <Property Name="EndDate" Type="date" />
-        </EntityType>
-        <EntityType Name="Students">
+        <EntityType Name="Student">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -170,7 +183,7 @@
           <Property Name="StartYear" Type="date" Nullable="false" />
           <Property Name="EndYear" Type="date" />
         </EntityType>
-        <EntityType Name="Subjects">
+        <EntityType Name="Subject">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -178,22 +191,34 @@
           <Property Name="NameT" Type="bigint" Nullable="false" />
           <Property Name="ShortNameT" Type="bigint" />
         </EntityType>
-        <EntityType Name="Translations">
+        <EntityType Name="Translation">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Number" Type="bigint" Nullable="false" />
-          <Property Name="LanguageId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TranslationEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TranslationId" Type="bigint" Nullable="false" />
+          <Property Name="LanguageId" Type="bigint" Nullable="false" />
           <Property Name="Value" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
-        <EntityType Name="TranslationsText">
+        <EntityType Name="TranslationText">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Number" Type="bigint" Nullable="false" />
-          <Property Name="LanguageId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TranslationTextEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TranslationTextId" Type="bigint" Nullable="false" />
+          <Property Name="LanguageId" Type="bigint" Nullable="false" />
           <Property Name="Value" Type="ntext" Nullable="false" />
         </EntityType>
         <EntityType Name="Tree">
@@ -203,28 +228,7 @@
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="ValueT" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="UserRating">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FromUserId" Type="bigint" Nullable="false" />
-          <Property Name="ToUserId" Type="bigint" Nullable="false" />
-          <Property Name="CriterionId" Type="bigint" Nullable="false" />
-          <Property Name="RatePercent" Type="float" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UserRequests">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="bigint" Nullable="false" />
-          <Property Name="RequestDateTime" Type="datetime" Nullable="false" />
-          <Property Name="RequestUrl" Type="nvarchar" MaxLength="2048" Nullable="false" />
-          <Property Name="Ip" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="Browser" Type="nvarchar" MaxLength="255" />
-        </EntityType>
-        <EntityType Name="Users">
+        <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -238,70 +242,998 @@
           <Property Name="RegisterDateTime" Type="datetime" Nullable="false" />
           <Property Name="LastLoginDateTime" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="WeekDays">
+        <EntityType Name="UserRating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromUserId" Type="bigint" Nullable="false" />
+          <Property Name="ToUserId" Type="bigint" Nullable="false" />
+          <Property Name="CriterionId" Type="bigint" Nullable="false" />
+          <Property Name="RatePercent" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="RequestDateTime" Type="datetime" Nullable="false" />
+          <Property Name="RequestUrl" Type="nvarchar" MaxLength="2048" Nullable="false" />
+          <Property Name="Ip" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Browser" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Week">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NameT" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="Weeks">
+        <EntityType Name="WeekDay">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NameT" Type="bigint" Nullable="false" />
         </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" />
+        </EntityType>
+        <Association Name="FK_Ambion_Faculty">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="0..1" />
+          <End Role="Ambion" Type="Self.Ambion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ambion">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ambion_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="0..1" />
+          <End Role="Ambion" Type="Self.Ambion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ambion">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ambion_Worker">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="0..1" />
+          <End Role="Ambion" Type="Self.Ambion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ambion">
+              <PropertyRef Name="ManagerWorkerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Article_ArticleCategory">
+          <End Role="ArticleCategory" Type="Self.ArticleCategory" Multiplicity="1" />
+          <End Role="Article" Type="Self.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArticleCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Article_Picture">
+          <End Role="Picture" Type="Self.Picture" Multiplicity="0..1" />
+          <End Role="Article" Type="Self.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Picture">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="PictureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Article_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="Article" Type="Self.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="TitleT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Article_TranslationText">
+          <End Role="TranslationText" Type="Self.TranslationText" Multiplicity="0..1" />
+          <End Role="Article" Type="Self.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TranslationText">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="DescribtionTT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Article_TranslationText1">
+          <End Role="TranslationText" Type="Self.TranslationText" Multiplicity="1" />
+          <End Role="Article" Type="Self.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TranslationText">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="TextTT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Article_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Article" Type="Self.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ArticleCategory_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="ArticleCategory" Type="Self.ArticleCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ArticleCategory">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_BookCategory">
+          <End Role="BookCategory" Type="Self.BookCategory" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_File">
+          <End Role="File" Type="Self.File" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_TranslationText">
+          <End Role="TranslationText" Type="Self.TranslationText" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TranslationText">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="DescribtionTT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookCategory_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="BookCategory" Type="Self.BookCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookCategory">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Classroom_Faculty">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
+          <End Role="Classroom" Type="Self.Classroom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Classroom">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Classroom_Picture">
+          <End Role="Picture" Type="Self.Picture" Multiplicity="0..1" />
+          <End Role="Classroom" Type="Self.Classroom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Picture">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Classroom">
+              <PropertyRef Name="PictureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Classroom_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="Classroom" Type="Self.Classroom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Classroom">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_Specialization">
+          <End Role="Specialization" Type="Self.Specialization" Multiplicity="1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="SpecializationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Faculty_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="0..1" />
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Faculty">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Faculty_Worker1">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="0..1" />
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Faculty">
+              <PropertyRef Name="DekanWorkerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Icon_File">
+          <End Role="File" Type="Self.File" Multiplicity="1" />
+          <End Role="Icon" Type="Self.Icon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Icon">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Languages_Icon">
+          <End Role="Icon" Type="Self.Icon" Multiplicity="0..1" />
+          <End Role="Languages" Type="Self.Languages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Icon">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Languages">
+              <PropertyRef Name="IconId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_Classroom">
+          <End Role="Classroom" Type="Self.Classroom" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classroom">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="ClassroomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_Professor">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="ProfessorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_Subject">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_Week">
+          <End Role="Week" Type="Self.Week" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Week">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="WeekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_WeekDay">
+          <End Role="WeekDay" Type="Self.WeekDay" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WeekDay">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="WeekDayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuItem_Link">
+          <End Role="Link" Type="Self.Link" Multiplicity="1" />
+          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Link">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItem">
+              <PropertyRef Name="LinkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuItem_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItem">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Picture_File">
+          <End Role="File" Type="Self.File" Multiplicity="1" />
+          <End Role="Picture" Type="Self.Picture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Picture">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Professor_Ambion">
+          <End Role="Ambion" Type="Self.Ambion" Multiplicity="1" />
+          <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ambion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="AmbionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Professor_Worker">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="1" />
+          <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="WorkerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RatingCriterion_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="RatingCriterion" Type="Self.RatingCriterion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RatingCriterion">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Specialization_Faculty">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
+          <End Role="Specialization" Type="Self.Specialization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Specialization">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Specialization_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="Specialization" Type="Self.Specialization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Specialization">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subject_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subject_Translation1">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="0..1" />
+          <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="ShortNameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Translation_Languages">
+          <End Role="Languages" Type="Self.Languages" Multiplicity="1" />
+          <End Role="TranslationEntry" Type="Self.TranslationEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languages">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TranslationEntry">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TranslationEntry_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="TranslationEntry" Type="Self.TranslationEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TranslationEntry">
+              <PropertyRef Name="TranslationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TranslationText_Languages">
+          <End Role="Languages" Type="Self.Languages" Multiplicity="1" />
+          <End Role="TranslationTextEntry" Type="Self.TranslationTextEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languages">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TranslationTextEntry">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TranslationTextEntry_TranslationText">
+          <End Role="TranslationText" Type="Self.TranslationText" Multiplicity="1" />
+          <End Role="TranslationTextEntry" Type="Self.TranslationTextEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TranslationText">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TranslationTextEntry">
+              <PropertyRef Name="TranslationTextId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tree_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="Tree" Type="Self.Tree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tree">
+              <PropertyRef Name="ValueT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="FirstNameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Translation1">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="MiddleNameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Translation2">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="LastNameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRating_RatingCriterion">
+          <End Role="RatingCriterion" Type="Self.RatingCriterion" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RatingCriterion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="CriterionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRating_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="FromUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRating_User1">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="ToUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRequest_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRequest" Type="Self.UserRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRequest">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Week_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="Week" Type="Self.Week" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Week">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeekDay_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="WeekDay" Type="Self.WeekDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WeekDay">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="UniversityModelStoreContainer">
-          <EntitySet Name="Ambions" EntityType="Self.Ambions" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ArticleCategories" EntityType="Self.ArticleCategories" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BookCategories" EntityType="Self.BookCategories" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Classrooms" EntityType="Self.Classrooms" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Facultyes" EntityType="Self.Facultyes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="IcoFiles" EntityType="Self.IcoFiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ambion" EntityType="Self.Ambion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArticleCategory" EntityType="Self.ArticleCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookCategory" EntityType="Self.BookCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Classroom" EntityType="Self.Classroom" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Faculty" EntityType="Self.Faculty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="File" EntityType="Self.File" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Icon" EntityType="Self.Icon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Lessons" EntityType="Self.Lessons" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Pictures" EntityType="Self.Pictures" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Professors" EntityType="Self.Professors" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RatingCriteria" EntityType="Self.RatingCriteria" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Specializations" EntityType="Self.Specializations" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Translations" EntityType="Self.Translations" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TranslationsText" EntityType="Self.TranslationsText" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Link" EntityType="Self.Link" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuItem" EntityType="Self.MenuItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Picture" EntityType="Self.Picture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Professor" EntityType="Self.Professor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RatingCriterion" EntityType="Self.RatingCriterion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specialization" EntityType="Self.Specialization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Translation" EntityType="Self.Translation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TranslationEntry" EntityType="Self.TranslationEntry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TranslationText" EntityType="Self.TranslationText" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TranslationTextEntry" EntityType="Self.TranslationTextEntry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tree" EntityType="Self.Tree" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRating" EntityType="Self.UserRating" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserRequests" EntityType="Self.UserRequests" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="WeekDays" EntityType="Self.WeekDays" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Weeks" EntityType="Self.Weeks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRequest" EntityType="Self.UserRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Week" EntityType="Self.Week" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WeekDay" EntityType="Self.WeekDay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Ambion_Faculty" Association="Self.FK_Ambion_Faculty">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="Ambion" EntitySet="Ambion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ambion_Translation" Association="Self.FK_Ambion_Translation">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="Ambion" EntitySet="Ambion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ambion_Worker" Association="Self.FK_Ambion_Worker">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="Ambion" EntitySet="Ambion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Article_ArticleCategory" Association="Self.FK_Article_ArticleCategory">
+            <End Role="ArticleCategory" EntitySet="ArticleCategory" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Article_Picture" Association="Self.FK_Article_Picture">
+            <End Role="Picture" EntitySet="Picture" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Article_Translation" Association="Self.FK_Article_Translation">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Article_TranslationText" Association="Self.FK_Article_TranslationText">
+            <End Role="TranslationText" EntitySet="TranslationText" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Article_TranslationText1" Association="Self.FK_Article_TranslationText1">
+            <End Role="TranslationText" EntitySet="TranslationText" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Article_User" Association="Self.FK_Article_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ArticleCategory_Translation" Association="Self.FK_ArticleCategory_Translation">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="ArticleCategory" EntitySet="ArticleCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_BookCategory" Association="Self.FK_Book_BookCategory">
+            <End Role="BookCategory" EntitySet="BookCategory" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_File" Association="Self.FK_Book_File">
+            <End Role="File" EntitySet="File" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_Translation" Association="Self.FK_Book_Translation">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_TranslationText" Association="Self.FK_Book_TranslationText">
+            <End Role="TranslationText" EntitySet="TranslationText" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookCategory_Translation" Association="Self.FK_BookCategory_Translation">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="BookCategory" EntitySet="BookCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Classroom_Faculty" Association="Self.FK_Classroom_Faculty">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="Classroom" EntitySet="Classroom" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Classroom_Picture" Association="Self.FK_Classroom_Picture">
+            <End Role="Picture" EntitySet="Picture" />
+            <End Role="Classroom" EntitySet="Classroom" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Classroom_Translation" Association="Self.FK_Classroom_Translation">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="Classroom" EntitySet="Classroom" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_Specialization" Association="Self.FK_Course_Specialization">
+            <End Role="Specialization" EntitySet="Specialization" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Faculty_Translation" Association="Self.FK_Faculty_Translation">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="Faculty" EntitySet="Faculty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Faculty_Worker1" Association="Self.FK_Faculty_Worker1">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="Faculty" EntitySet="Faculty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Icon_File" Association="Self.FK_Icon_File">
+            <End Role="File" EntitySet="File" />
+            <End Role="Icon" EntitySet="Icon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Languages_Icon" Association="Self.FK_Languages_Icon">
+            <End Role="Icon" EntitySet="Icon" />
+            <End Role="Languages" EntitySet="Languages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Classroom" Association="Self.FK_Lesson_Classroom">
+            <End Role="Classroom" EntitySet="Classroom" />
+            <End Role="Lesson" EntitySet="Lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Course" Association="Self.FK_Lesson_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Lesson" EntitySet="Lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Professor" Association="Self.FK_Lesson_Professor">
+            <End Role="Professor" EntitySet="Professor" />
+            <End Role="Lesson" EntitySet="Lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Subject" Association="Self.FK_Lesson_Subject">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="Lesson" EntitySet="Lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Week" Association="Self.FK_Lesson_Week">
+            <End Role="Week" EntitySet="Week" />
+            <End Role="Lesson" EntitySet="Lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_WeekDay" Association="Self.FK_Lesson_WeekDay">
+            <End Role="WeekDay" EntitySet="WeekDay" />
+            <End Role="Lesson" EntitySet="Lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuItem_Link" Association="Self.FK_MenuItem_Link">
+            <End Role="Link" EntitySet="Link" />
+            <End Role="MenuItem" EntitySet="MenuItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuItem_Translation" Association="Self.FK_MenuItem_Translation">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="MenuItem" EntitySet="MenuItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Picture_File" Association="Self.FK_Picture_File">
+            <End Role="File" EntitySet="File" />
+            <End Role="Picture" EntitySet="Picture" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Professor_Ambion" Association="Self.FK_Professor_Ambion">
+            <End Role="Ambion" EntitySet="Ambion" />
+            <End Role="Professor" EntitySet="Professor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Professor_Worker" Association="Self.FK_Professor_Worker">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="Professor" EntitySet="Professor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RatingCriterion_Translation" Association="Self.FK_RatingCriterion_Translation">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="RatingCriterion" EntitySet="RatingCriterion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Specialization_Faculty" Association="Self.FK_Specialization_Faculty">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="Specialization" EntitySet="Specialization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Specialization_Translation" Association="Self.FK_Specialization_Translation">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="Specialization" EntitySet="Specialization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Course" Association="Self.FK_Student_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_User" Association="Self.FK_Student_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subject_Translation" Association="Self.FK_Subject_Translation">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="Subject" EntitySet="Subject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subject_Translation1" Association="Self.FK_Subject_Translation1">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="Subject" EntitySet="Subject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Translation_Languages" Association="Self.FK_Translation_Languages">
+            <End Role="Languages" EntitySet="Languages" />
+            <End Role="TranslationEntry" EntitySet="TranslationEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TranslationEntry_Translation" Association="Self.FK_TranslationEntry_Translation">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="TranslationEntry" EntitySet="TranslationEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TranslationText_Languages" Association="Self.FK_TranslationText_Languages">
+            <End Role="Languages" EntitySet="Languages" />
+            <End Role="TranslationTextEntry" EntitySet="TranslationTextEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TranslationTextEntry_TranslationText" Association="Self.FK_TranslationTextEntry_TranslationText">
+            <End Role="TranslationText" EntitySet="TranslationText" />
+            <End Role="TranslationTextEntry" EntitySet="TranslationTextEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tree_Translation" Association="Self.FK_Tree_Translation">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="Tree" EntitySet="Tree" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Translation" Association="Self.FK_User_Translation">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Translation1" Association="Self.FK_User_Translation1">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Translation2" Association="Self.FK_User_Translation2">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRating_RatingCriterion" Association="Self.FK_UserRating_RatingCriterion">
+            <End Role="RatingCriterion" EntitySet="RatingCriterion" />
+            <End Role="UserRating" EntitySet="UserRating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRating_User" Association="Self.FK_UserRating_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRating" EntitySet="UserRating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRating_User1" Association="Self.FK_UserRating_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRating" EntitySet="UserRating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRequest_User" Association="Self.FK_UserRequest_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRequest" EntitySet="UserRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Week_Translation" Association="Self.FK_Week_Translation">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="Week" EntitySet="Week" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeekDay_Translation" Association="Self.FK_WeekDay_Translation">
+            <End Role="Translation" EntitySet="Translation" />
+            <End Role="WeekDay" EntitySet="WeekDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_User" Association="Self.FK_Worker_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="UniversityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Ambions">
+        <EntityType Name="Ambion">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FacultyId" Type="Int64" Nullable="false" />
-          <Property Name="NameT" Type="Int64" Nullable="false" />
+          <Property Name="FacultyId" Type="Int64" />
+          <Property Name="NameT" Type="Int64" />
+          <Property Name="ManagerWorkerId" Type="Int64" />
+          <NavigationProperty Name="Faculty" Relationship="Self.FK_Ambion_Faculty" FromRole="Ambion" ToRole="Faculty" />
+          <NavigationProperty Name="NameTranslation" Relationship="Self.FK_Ambion_Translation" FromRole="Ambion" ToRole="Translation" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK_Ambion_Worker" FromRole="Ambion" ToRole="Worker" />
+          <NavigationProperty Name="Professors" Relationship="Self.FK_Professor_Ambion" FromRole="Ambion" ToRole="Professor" />
         </EntityType>
-        <EntityType Name="ArticleCategories">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NameT" Type="Int64" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Articles">
+        <EntityType Name="Article">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -316,26 +1248,47 @@
           <Property Name="TitleT" Type="Int64" Nullable="false" />
           <Property Name="DescribtionTT" Type="Int64" />
           <Property Name="TextTT" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="ArticleCategory" Relationship="Self.FK_Article_ArticleCategory" FromRole="Article" ToRole="ArticleCategory" />
+          <NavigationProperty Name="Picture" Relationship="Self.FK_Article_Picture" FromRole="Article" ToRole="Picture" />
+          <NavigationProperty Name="TitleTranslation" Relationship="Self.FK_Article_Translation" FromRole="Article" ToRole="Translation" />
+          <NavigationProperty Name="DescribtionTranslation" Relationship="Self.FK_Article_TranslationText" FromRole="Article" ToRole="TranslationText" />
+          <NavigationProperty Name="TextTranslation" Relationship="Self.FK_Article_TranslationText1" FromRole="Article" ToRole="TranslationText" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Article_User" FromRole="Article" ToRole="User" />
         </EntityType>
-        <EntityType Name="BookCategories">
+        <EntityType Name="ArticleCategory">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameT" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Articles" Relationship="Self.FK_Article_ArticleCategory" FromRole="ArticleCategory" ToRole="Article" />
+          <NavigationProperty Name="NameTranslation" Relationship="Self.FK_ArticleCategory_Translation" FromRole="ArticleCategory" ToRole="Translation" />
         </EntityType>
-        <EntityType Name="Books">
+        <EntityType Name="Book">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FilePath" Type="String" MaxLength="2048" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FileId" Type="Int64" Nullable="false" />
           <Property Name="StoredDateTime" Type="DateTime" Precision="3" />
           <Property Name="CategoryId" Type="Int64" Nullable="false" />
           <Property Name="NameT" Type="Int64" Nullable="false" />
           <Property Name="DescribtionTT" Type="Int64" />
+          <NavigationProperty Name="BookCategory" Relationship="Self.FK_Book_BookCategory" FromRole="Book" ToRole="BookCategory" />
+          <NavigationProperty Name="File" Relationship="Self.FK_Book_File" FromRole="Book" ToRole="File" />
+          <NavigationProperty Name="NameTranslation" Relationship="Self.FK_Book_Translation" FromRole="Book" ToRole="Translation" />
+          <NavigationProperty Name="DescribtionTranslation" Relationship="Self.FK_Book_TranslationText" FromRole="Book" ToRole="TranslationText" />
         </EntityType>
-        <EntityType Name="Classrooms">
+        <EntityType Name="BookCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameT" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Book_BookCategory" FromRole="BookCategory" ToRole="Book" />
+          <NavigationProperty Name="NameTranslation" Relationship="Self.FK_BookCategory_Translation" FromRole="BookCategory" ToRole="Translation" />
+        </EntityType>
+        <EntityType Name="Classroom">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -343,8 +1296,12 @@
           <Property Name="NameT" Type="Int64" Nullable="false" />
           <Property Name="FacultyId" Type="Int64" Nullable="false" />
           <Property Name="PictureId" Type="Int64" />
+          <NavigationProperty Name="Faculty" Relationship="Self.FK_Classroom_Faculty" FromRole="Classroom" ToRole="Faculty" />
+          <NavigationProperty Name="Picture" Relationship="Self.FK_Classroom_Picture" FromRole="Classroom" ToRole="Picture" />
+          <NavigationProperty Name="NameTranslation" Relationship="Self.FK_Classroom_Translation" FromRole="Classroom" ToRole="Translation" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_Classroom" FromRole="Classroom" ToRole="Lesson" />
         </EntityType>
-        <EntityType Name="Courses">
+        <EntityType Name="Course">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -352,41 +1309,51 @@
           <Property Name="SpecializationId" Type="Int64" Nullable="false" />
           <Property Name="StartYear" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="EndYear" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Specialization" Relationship="Self.FK_Course_Specialization" FromRole="Course" ToRole="Specialization" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_Course" FromRole="Course" ToRole="Lesson" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_Student_Course" FromRole="Course" ToRole="Student" />
         </EntityType>
-        <EntityType Name="Facultyes">
+        <EntityType Name="Faculty">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DekanStaffId" Type="Int64" Nullable="false" />
-          <Property Name="NameT" Type="Int64" Nullable="false" />
+          <Property Name="DekanWorkerId" Type="Int64" />
+          <Property Name="NameT" Type="Int64" />
+          <NavigationProperty Name="Ambions" Relationship="Self.FK_Ambion_Faculty" FromRole="Faculty" ToRole="Ambion" />
+          <NavigationProperty Name="Classrooms" Relationship="Self.FK_Classroom_Faculty" FromRole="Faculty" ToRole="Classroom" />
+          <NavigationProperty Name="NameTranslation" Relationship="Self.FK_Faculty_Translation" FromRole="Faculty" ToRole="Translation" />
+          <NavigationProperty Name="DekanWorker" Relationship="Self.FK_Faculty_Worker1" FromRole="Faculty" ToRole="Worker" />
+          <NavigationProperty Name="Specializations" Relationship="Self.FK_Specialization_Faculty" FromRole="Faculty" ToRole="Specialization" />
         </EntityType>
-        <EntityType Name="Files">
+        <EntityType Name="File">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FilePath" Type="String" MaxLength="2048" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Path" Type="String" MaxLength="2048" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="StoredDateTime" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="IcoFiles">
+        <EntityType Name="Icon">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FilePath" Type="String" MaxLength="2048" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FileId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="File" Relationship="Self.FK_Icon_File" FromRole="Icon" ToRole="File" />
         </EntityType>
-        <EntityType Name="Languages">
+        <EntityType Name="Language">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NameShort" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="NameOriginal" Type="Int64" />
+          <Property Name="Code" Type="String" MaxLength="2" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IconId" Type="Int64" />
+          <NavigationProperty Name="Icon" Relationship="Self.FK_Languages_Icon" FromRole="Languages" ToRole="Icon" />
         </EntityType>
-        <EntityType Name="Lessons">
+        <EntityType Name="Lesson">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -395,53 +1362,82 @@
           <Property Name="ProfessorId" Type="Int64" Nullable="false" />
           <Property Name="Year" Type="Int32" Nullable="false" />
           <Property Name="Semester" Type="Int32" Nullable="false" />
-          <Property Name="Week" Type="Int32" Nullable="false" />
-          <Property Name="WeekDay" Type="Int32" Nullable="false" />
+          <Property Name="WeekId" Type="Int64" Nullable="false" />
+          <Property Name="WeekDayId" Type="Int64" Nullable="false" />
           <Property Name="Hour" Type="Int32" Nullable="false" />
           <Property Name="ClassroomId" Type="Int64" Nullable="false" />
+          <Property Name="SubjectId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Classroom" Relationship="Self.FK_Lesson_Classroom" FromRole="Lesson" ToRole="Classroom" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_Lesson_Course" FromRole="Lesson" ToRole="Course" />
+          <NavigationProperty Name="Professor" Relationship="Self.FK_Lesson_Professor" FromRole="Lesson" ToRole="Professor" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK_Lesson_Subject" FromRole="Lesson" ToRole="Subject" />
+          <NavigationProperty Name="Week" Relationship="Self.FK_Lesson_Week" FromRole="Lesson" ToRole="Week" />
+          <NavigationProperty Name="WeekDay" Relationship="Self.FK_Lesson_WeekDay" FromRole="Lesson" ToRole="WeekDay" />
         </EntityType>
-        <EntityType Name="Pictures">
+        <EntityType Name="Link">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FilePath" Type="String" MaxLength="2048" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="AltT" Type="Int64" Nullable="false" />
-          <Property Name="StoredDateTime" Type="DateTime" Precision="3" />
+          <Property Name="Controller" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OptionsJSON" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExternalUrl" Type="String" MaxLength="2048" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Professors">
+        <EntityType Name="MenuItem">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" />
-          <Property Name="StaffId" Type="Int64" Nullable="false" />
-          <Property Name="DegreeTree" Type="Int64" Nullable="false" />
+          <Property Name="NameT" Type="Int64" Nullable="false" />
+          <Property Name="LinkId" Type="Int64" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Link" Relationship="Self.FK_MenuItem_Link" FromRole="MenuItem" ToRole="Link" />
+          <NavigationProperty Name="NameTranslation" Relationship="Self.FK_MenuItem_Translation" FromRole="MenuItem" ToRole="Translation" />
         </EntityType>
-        <EntityType Name="RatingCriteria">
+        <EntityType Name="Picture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileId" Type="Int64" Nullable="false" />
+          <Property Name="AltT" Type="Int64" Nullable="false" />
+          <Property Name="StoredDateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="File" Relationship="Self.FK_Picture_File" FromRole="Picture" ToRole="File" />
+        </EntityType>
+        <EntityType Name="Professor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="WorkerId" Type="Int64" Nullable="false" />
+          <Property Name="DegreeTree" Type="Int64" Nullable="false" />
+          <Property Name="AmbionId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Ambion" Relationship="Self.FK_Professor_Ambion" FromRole="Professor" ToRole="Ambion" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_Professor" FromRole="Professor" ToRole="Lesson" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK_Professor_Worker" FromRole="Professor" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="RatingCriterion">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameT" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="NameTranslation" Relationship="Self.FK_RatingCriterion_Translation" FromRole="RatingCriterion" ToRole="Translation" />
+          <NavigationProperty Name="UserRatings" Relationship="Self.FK_UserRating_RatingCriterion" FromRole="RatingCriterion" ToRole="UserRating" />
         </EntityType>
-        <EntityType Name="Specializations">
+        <EntityType Name="Specialization">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FacultyId" Type="Int64" Nullable="false" />
           <Property Name="NameT" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK_Course_Specialization" FromRole="Specialization" ToRole="Course" />
+          <NavigationProperty Name="Faculty" Relationship="Self.FK_Specialization_Faculty" FromRole="Specialization" ToRole="Faculty" />
+          <NavigationProperty Name="NameTranslation" Relationship="Self.FK_Specialization_Translation" FromRole="Specialization" ToRole="Translation" />
         </EntityType>
-        <EntityType Name="Staff">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int64" Nullable="false" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="EndDate" Type="DateTime" Precision="0" />
-        </EntityType>
-        <EntityType Name="Students">
+        <EntityType Name="Student">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -450,32 +1446,55 @@
           <Property Name="CourseId" Type="Int64" Nullable="false" />
           <Property Name="StartYear" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="EndYear" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_Student_Course" FromRole="Student" ToRole="Course" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Student_User" FromRole="Student" ToRole="User" />
         </EntityType>
-        <EntityType Name="Subjects">
+        <EntityType Name="Subject">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameT" Type="Int64" Nullable="false" />
           <Property Name="ShortNameT" Type="Int64" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_Subject" FromRole="Subject" ToRole="Lesson" />
+          <NavigationProperty Name="NameTranslation" Relationship="Self.FK_Subject_Translation" FromRole="Subject" ToRole="Translation" />
+          <NavigationProperty Name="ShortNameTranslation" Relationship="Self.FK_Subject_Translation1" FromRole="Subject" ToRole="Translation" />
         </EntityType>
-        <EntityType Name="Translations">
+        <EntityType Name="Translation">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Number" Type="Int64" Nullable="false" />
-          <Property Name="LanguageId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Entries" Relationship="Self.FK_TranslationEntry_Translation" FromRole="Translation" ToRole="TranslationEntry" />
+          </EntityType>
+        <EntityType Name="TranslationEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TranslationId" Type="Int64" Nullable="false" />
+          <Property Name="LanguageId" Type="Int64" Nullable="false" />
           <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Language" Relationship="Self.FK_Translation_Languages" FromRole="TranslationEntry" ToRole="Languages" />
+          <NavigationProperty Name="Translation" Relationship="Self.FK_TranslationEntry_Translation" FromRole="TranslationEntry" ToRole="Translation" />
         </EntityType>
-        <EntityType Name="TranslationsText">
+        <EntityType Name="TranslationText">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Number" Type="Int64" Nullable="false" />
-          <Property Name="LanguageId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Entries" Relationship="Self.FK_TranslationTextEntry_TranslationText" FromRole="TranslationText" ToRole="TranslationTextEntry" />
+        </EntityType>
+        <EntityType Name="TranslationTextEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TranslationTextId" Type="Int64" Nullable="false" />
+          <Property Name="LanguageId" Type="Int64" Nullable="false" />
           <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Language" Relationship="Self.FK_TranslationText_Languages" FromRole="TranslationTextEntry" ToRole="Languages" />
+          <NavigationProperty Name="TranslationText" Relationship="Self.FK_TranslationTextEntry_TranslationText" FromRole="TranslationTextEntry" ToRole="TranslationText" />
         </EntityType>
         <EntityType Name="Tree">
           <Key>
@@ -483,29 +1502,9 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" />
           <Property Name="ValueT" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="ValueTranslation" Relationship="Self.FK_Tree_Translation" FromRole="Tree" ToRole="Translation" />
         </EntityType>
-        <EntityType Name="UserRating">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FromUserId" Type="Int64" Nullable="false" />
-          <Property Name="ToUserId" Type="Int64" Nullable="false" />
-          <Property Name="CriterionId" Type="Int64" Nullable="false" />
-          <Property Name="RatePercent" Type="Double" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UserRequests">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int64" Nullable="false" />
-          <Property Name="RequestDateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="RequestUrl" Type="String" MaxLength="2048" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Ip" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Browser" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Users">
+        <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -518,49 +1517,997 @@
           <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="RegisterDateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastLoginDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Articles" Relationship="Self.FK_Article_User" FromRole="User" ToRole="Article" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_Student_User" FromRole="User" ToRole="Student" />
+          <NavigationProperty Name="FirstNameTranslation" Relationship="Self.FK_User_Translation" FromRole="User" ToRole="Translation" />
+          <NavigationProperty Name="MiddleNameTranslation" Relationship="Self.FK_User_Translation1" FromRole="User" ToRole="Translation" />
+          <NavigationProperty Name="LastNameTranslation" Relationship="Self.FK_User_Translation2" FromRole="User" ToRole="Translation" />
+          <NavigationProperty Name="UserRatings" Relationship="Self.FK_UserRating_User" FromRole="User" ToRole="UserRating" />
+          <NavigationProperty Name="UserRatingsSelf" Relationship="Self.FK_UserRating_User1" FromRole="User" ToRole="UserRating" />
+          <NavigationProperty Name="UserRequests" Relationship="Self.FK_UserRequest_User" FromRole="User" ToRole="UserRequest" />
+          <NavigationProperty Name="Workers" Relationship="Self.FK_Worker_User" FromRole="User" ToRole="Worker" />
         </EntityType>
-        <EntityType Name="WeekDays">
+        <EntityType Name="UserRating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromUserId" Type="Int64" Nullable="false" />
+          <Property Name="ToUserId" Type="Int64" Nullable="false" />
+          <Property Name="CriterionId" Type="Int64" Nullable="false" />
+          <Property Name="RatePercent" Type="Double" Nullable="false" />
+          <NavigationProperty Name="RatingCriterion" Relationship="Self.FK_UserRating_RatingCriterion" FromRole="UserRating" ToRole="RatingCriterion" />
+          <NavigationProperty Name="UserFrom" Relationship="Self.FK_UserRating_User" FromRole="UserRating" ToRole="User" />
+          <NavigationProperty Name="UserTo" Relationship="Self.FK_UserRating_User1" FromRole="UserRating" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="RequestDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RequestUrl" Type="String" MaxLength="2048" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ip" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Browser" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserRequest_User" FromRole="UserRequest" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Week">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameT" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_Week" FromRole="Week" ToRole="Lesson" />
+          <NavigationProperty Name="NameTranslation" Relationship="Self.FK_Week_Translation" FromRole="Week" ToRole="Translation" />
         </EntityType>
-        <EntityType Name="Weeks">
+        <EntityType Name="WeekDay">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameT" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_WeekDay" FromRole="WeekDay" ToRole="Lesson" />
+          <NavigationProperty Name="NameTranslation" Relationship="Self.FK_WeekDay_Translation" FromRole="WeekDay" ToRole="Translation" />
         </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Worker_User" FromRole="Worker" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Ambion_Faculty">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="0..1" />
+          <End Role="Ambion" Type="Self.Ambion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ambion">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ambion_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="0..1" />
+          <End Role="Ambion" Type="Self.Ambion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ambion">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ambion_Worker">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="0..1" />
+          <End Role="Ambion" Type="Self.Ambion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ambion">
+              <PropertyRef Name="ManagerWorkerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Professor_Ambion">
+          <End Role="Ambion" Type="Self.Ambion" Multiplicity="1" />
+          <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ambion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="AmbionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Article_ArticleCategory">
+          <End Role="ArticleCategory" Type="Self.ArticleCategory" Multiplicity="1" />
+          <End Role="Article" Type="Self.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArticleCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Article_Picture">
+          <End Role="Picture" Type="Self.Picture" Multiplicity="0..1" />
+          <End Role="Article" Type="Self.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Picture">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="PictureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Article_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="Article" Type="Self.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="TitleT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Article_TranslationText">
+          <End Role="TranslationText" Type="Self.TranslationText" Multiplicity="0..1" />
+          <End Role="Article" Type="Self.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TranslationText">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="DescribtionTT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Article_TranslationText1">
+          <End Role="TranslationText" Type="Self.TranslationText" Multiplicity="1" />
+          <End Role="Article" Type="Self.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TranslationText">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="TextTT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Article_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Article" Type="Self.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ArticleCategory_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="ArticleCategory" Type="Self.ArticleCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ArticleCategory">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_BookCategory">
+          <End Role="BookCategory" Type="Self.BookCategory" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_File">
+          <End Role="File" Type="Self.File" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_TranslationText">
+          <End Role="TranslationText" Type="Self.TranslationText" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TranslationText">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="DescribtionTT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookCategory_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="BookCategory" Type="Self.BookCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookCategory">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Classroom_Faculty">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
+          <End Role="Classroom" Type="Self.Classroom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Classroom">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Classroom_Picture">
+          <End Role="Picture" Type="Self.Picture" Multiplicity="0..1" />
+          <End Role="Classroom" Type="Self.Classroom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Picture">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Classroom">
+              <PropertyRef Name="PictureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Classroom_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="Classroom" Type="Self.Classroom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Classroom">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_Classroom">
+          <End Role="Classroom" Type="Self.Classroom" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classroom">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="ClassroomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_Specialization">
+          <End Role="Specialization" Type="Self.Specialization" Multiplicity="1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="SpecializationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Faculty_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="0..1" />
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Faculty">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Faculty_Worker1">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="0..1" />
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Faculty">
+              <PropertyRef Name="DekanWorkerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Specialization_Faculty">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
+          <End Role="Specialization" Type="Self.Specialization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Specialization">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Icon_File">
+          <End Role="File" Type="Self.File" Multiplicity="1" />
+          <End Role="Icon" Type="Self.Icon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Icon">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Picture_File">
+          <End Role="File" Type="Self.File" Multiplicity="1" />
+          <End Role="Picture" Type="Self.Picture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Picture">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Languages_Icon">
+          <End Role="Icon" Type="Self.Icon" Multiplicity="0..1" />
+          <End Role="Languages" Type="Self.Language" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Icon">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Languages">
+              <PropertyRef Name="IconId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Translation_Languages">
+          <End Role="Languages" Type="Self.Language" Multiplicity="1" />
+          <End Role="TranslationEntry" Type="Self.TranslationEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languages">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TranslationEntry">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TranslationText_Languages">
+          <End Role="Languages" Type="Self.Language" Multiplicity="1" />
+          <End Role="TranslationTextEntry" Type="Self.TranslationTextEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languages">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TranslationTextEntry">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_Professor">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="ProfessorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_Subject">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_Week">
+          <End Role="Week" Type="Self.Week" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Week">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="WeekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_WeekDay">
+          <End Role="WeekDay" Type="Self.WeekDay" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WeekDay">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="WeekDayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuItem_Link">
+          <End Role="Link" Type="Self.Link" Multiplicity="1" />
+          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Link">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItem">
+              <PropertyRef Name="LinkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuItem_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="MenuItem" Type="Self.MenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItem">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Professor_Worker">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="1" />
+          <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="WorkerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RatingCriterion_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="RatingCriterion" Type="Self.RatingCriterion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RatingCriterion">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRating_RatingCriterion">
+          <End Role="RatingCriterion" Type="Self.RatingCriterion" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RatingCriterion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="CriterionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Specialization_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="Specialization" Type="Self.Specialization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Specialization">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subject_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subject_Translation1">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="0..1" />
+          <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="ShortNameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TranslationEntry_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="TranslationEntry" Type="Self.TranslationEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TranslationEntry">
+              <PropertyRef Name="TranslationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tree_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="Tree" Type="Self.Tree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tree">
+              <PropertyRef Name="ValueT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="FirstNameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Translation1">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="MiddleNameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Translation2">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="LastNameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Week_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="Week" Type="Self.Week" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Week">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeekDay_Translation">
+          <End Role="Translation" Type="Self.Translation" Multiplicity="1" />
+          <End Role="WeekDay" Type="Self.WeekDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Translation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WeekDay">
+              <PropertyRef Name="NameT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TranslationTextEntry_TranslationText">
+          <End Role="TranslationText" Type="Self.TranslationText" Multiplicity="1" />
+          <End Role="TranslationTextEntry" Type="Self.TranslationTextEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TranslationText">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TranslationTextEntry">
+              <PropertyRef Name="TranslationTextId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRating_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="FromUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRating_User1">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="ToUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRequest_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRequest" Type="Self.UserRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRequest">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="UniversityEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Ambions" EntityType="Self.Ambions" />
-          <EntitySet Name="ArticleCategories" EntityType="Self.ArticleCategories" />
-          <EntitySet Name="Articles" EntityType="Self.Articles" />
-          <EntitySet Name="BookCategories" EntityType="Self.BookCategories" />
-          <EntitySet Name="Books" EntityType="Self.Books" />
-          <EntitySet Name="Classrooms" EntityType="Self.Classrooms" />
-          <EntitySet Name="Courses" EntityType="Self.Courses" />
-          <EntitySet Name="Facultyes" EntityType="Self.Facultyes" />
-          <EntitySet Name="Files" EntityType="Self.Files" />
-          <EntitySet Name="IcoFiles" EntityType="Self.IcoFiles" />
-          <EntitySet Name="Languages" EntityType="Self.Languages" />
-          <EntitySet Name="Lessons" EntityType="Self.Lessons" />
-          <EntitySet Name="Pictures" EntityType="Self.Pictures" />
-          <EntitySet Name="Professors" EntityType="Self.Professors" />
-          <EntitySet Name="RatingCriteria" EntityType="Self.RatingCriteria" />
-          <EntitySet Name="Specializations" EntityType="Self.Specializations" />
-          <EntitySet Name="Staff" EntityType="Self.Staff" />
-          <EntitySet Name="Students" EntityType="Self.Students" />
-          <EntitySet Name="Subjects" EntityType="Self.Subjects" />
-          <EntitySet Name="Translations" EntityType="Self.Translations" />
-          <EntitySet Name="TranslationsText" EntityType="Self.TranslationsText" />
-          <EntitySet Name="Tree" EntityType="Self.Tree" />
-          <EntitySet Name="UserRating" EntityType="Self.UserRating" />
-          <EntitySet Name="UserRequests" EntityType="Self.UserRequests" />
-          <EntitySet Name="Users" EntityType="Self.Users" />
-          <EntitySet Name="WeekDays" EntityType="Self.WeekDays" />
-          <EntitySet Name="Weeks" EntityType="Self.Weeks" />
+          <EntitySet Name="Ambions" EntityType="Self.Ambion" />
+          <EntitySet Name="Articles" EntityType="Self.Article" />
+          <EntitySet Name="ArticleCategories" EntityType="Self.ArticleCategory" />
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="BookCategories" EntityType="Self.BookCategory" />
+          <EntitySet Name="Classrooms" EntityType="Self.Classroom" />
+          <EntitySet Name="Courses" EntityType="Self.Course" />
+          <EntitySet Name="Faculties" EntityType="Self.Faculty" />
+          <EntitySet Name="Files" EntityType="Self.File" />
+          <EntitySet Name="Icons" EntityType="Self.Icon" />
+          <EntitySet Name="Languages" EntityType="Self.Language" />
+          <EntitySet Name="Lessons" EntityType="Self.Lesson" />
+          <EntitySet Name="Links" EntityType="Self.Link" />
+          <EntitySet Name="MenuItems" EntityType="Self.MenuItem" />
+          <EntitySet Name="Pictures" EntityType="Self.Picture" />
+          <EntitySet Name="Professors" EntityType="Self.Professor" />
+          <EntitySet Name="RatingCriterions" EntityType="Self.RatingCriterion" />
+          <EntitySet Name="Specializations" EntityType="Self.Specialization" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="Subjects" EntityType="Self.Subject" />
+          <EntitySet Name="Translations" EntityType="Self.Translation" />
+          <EntitySet Name="TranslationEntries" EntityType="Self.TranslationEntry" />
+          <EntitySet Name="TranslationTexts" EntityType="Self.TranslationText" />
+          <EntitySet Name="TranslationTextEntries" EntityType="Self.TranslationTextEntry" />
+          <EntitySet Name="Trees" EntityType="Self.Tree" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserRatings" EntityType="Self.UserRating" />
+          <EntitySet Name="UserRequests" EntityType="Self.UserRequest" />
+          <EntitySet Name="Weeks" EntityType="Self.Week" />
+          <EntitySet Name="WeekDays" EntityType="Self.WeekDay" />
+          <EntitySet Name="Workers" EntityType="Self.Worker" />
+          <AssociationSet Name="FK_Ambion_Faculty" Association="Self.FK_Ambion_Faculty">
+            <End Role="Faculty" EntitySet="Faculties" />
+            <End Role="Ambion" EntitySet="Ambions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ambion_Translation" Association="Self.FK_Ambion_Translation">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="Ambion" EntitySet="Ambions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ambion_Worker" Association="Self.FK_Ambion_Worker">
+            <End Role="Worker" EntitySet="Workers" />
+            <End Role="Ambion" EntitySet="Ambions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Professor_Ambion" Association="Self.FK_Professor_Ambion">
+            <End Role="Ambion" EntitySet="Ambions" />
+            <End Role="Professor" EntitySet="Professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Article_ArticleCategory" Association="Self.FK_Article_ArticleCategory">
+            <End Role="ArticleCategory" EntitySet="ArticleCategories" />
+            <End Role="Article" EntitySet="Articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Article_Picture" Association="Self.FK_Article_Picture">
+            <End Role="Picture" EntitySet="Pictures" />
+            <End Role="Article" EntitySet="Articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Article_Translation" Association="Self.FK_Article_Translation">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="Article" EntitySet="Articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Article_TranslationText" Association="Self.FK_Article_TranslationText">
+            <End Role="TranslationText" EntitySet="TranslationTexts" />
+            <End Role="Article" EntitySet="Articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Article_TranslationText1" Association="Self.FK_Article_TranslationText1">
+            <End Role="TranslationText" EntitySet="TranslationTexts" />
+            <End Role="Article" EntitySet="Articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Article_User" Association="Self.FK_Article_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Article" EntitySet="Articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ArticleCategory_Translation" Association="Self.FK_ArticleCategory_Translation">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="ArticleCategory" EntitySet="ArticleCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_BookCategory" Association="Self.FK_Book_BookCategory">
+            <End Role="BookCategory" EntitySet="BookCategories" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_File" Association="Self.FK_Book_File">
+            <End Role="File" EntitySet="Files" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_Translation" Association="Self.FK_Book_Translation">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_TranslationText" Association="Self.FK_Book_TranslationText">
+            <End Role="TranslationText" EntitySet="TranslationTexts" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookCategory_Translation" Association="Self.FK_BookCategory_Translation">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="BookCategory" EntitySet="BookCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Classroom_Faculty" Association="Self.FK_Classroom_Faculty">
+            <End Role="Faculty" EntitySet="Faculties" />
+            <End Role="Classroom" EntitySet="Classrooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Classroom_Picture" Association="Self.FK_Classroom_Picture">
+            <End Role="Picture" EntitySet="Pictures" />
+            <End Role="Classroom" EntitySet="Classrooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Classroom_Translation" Association="Self.FK_Classroom_Translation">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="Classroom" EntitySet="Classrooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Classroom" Association="Self.FK_Lesson_Classroom">
+            <End Role="Classroom" EntitySet="Classrooms" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_Specialization" Association="Self.FK_Course_Specialization">
+            <End Role="Specialization" EntitySet="Specializations" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Course" Association="Self.FK_Lesson_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Course" Association="Self.FK_Student_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Faculty_Translation" Association="Self.FK_Faculty_Translation">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="Faculty" EntitySet="Faculties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Faculty_Worker1" Association="Self.FK_Faculty_Worker1">
+            <End Role="Worker" EntitySet="Workers" />
+            <End Role="Faculty" EntitySet="Faculties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Specialization_Faculty" Association="Self.FK_Specialization_Faculty">
+            <End Role="Faculty" EntitySet="Faculties" />
+            <End Role="Specialization" EntitySet="Specializations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Icon_File" Association="Self.FK_Icon_File">
+            <End Role="File" EntitySet="Files" />
+            <End Role="Icon" EntitySet="Icons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Picture_File" Association="Self.FK_Picture_File">
+            <End Role="File" EntitySet="Files" />
+            <End Role="Picture" EntitySet="Pictures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Languages_Icon" Association="Self.FK_Languages_Icon">
+            <End Role="Icon" EntitySet="Icons" />
+            <End Role="Languages" EntitySet="Languages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Translation_Languages" Association="Self.FK_Translation_Languages">
+            <End Role="Languages" EntitySet="Languages" />
+            <End Role="TranslationEntry" EntitySet="TranslationEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TranslationText_Languages" Association="Self.FK_TranslationText_Languages">
+            <End Role="Languages" EntitySet="Languages" />
+            <End Role="TranslationTextEntry" EntitySet="TranslationTextEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Professor" Association="Self.FK_Lesson_Professor">
+            <End Role="Professor" EntitySet="Professors" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Subject" Association="Self.FK_Lesson_Subject">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Week" Association="Self.FK_Lesson_Week">
+            <End Role="Week" EntitySet="Weeks" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_WeekDay" Association="Self.FK_Lesson_WeekDay">
+            <End Role="WeekDay" EntitySet="WeekDays" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuItem_Link" Association="Self.FK_MenuItem_Link">
+            <End Role="Link" EntitySet="Links" />
+            <End Role="MenuItem" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuItem_Translation" Association="Self.FK_MenuItem_Translation">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="MenuItem" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Professor_Worker" Association="Self.FK_Professor_Worker">
+            <End Role="Worker" EntitySet="Workers" />
+            <End Role="Professor" EntitySet="Professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RatingCriterion_Translation" Association="Self.FK_RatingCriterion_Translation">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="RatingCriterion" EntitySet="RatingCriterions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRating_RatingCriterion" Association="Self.FK_UserRating_RatingCriterion">
+            <End Role="RatingCriterion" EntitySet="RatingCriterions" />
+            <End Role="UserRating" EntitySet="UserRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Specialization_Translation" Association="Self.FK_Specialization_Translation">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="Specialization" EntitySet="Specializations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_User" Association="Self.FK_Student_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subject_Translation" Association="Self.FK_Subject_Translation">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="Subject" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subject_Translation1" Association="Self.FK_Subject_Translation1">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="Subject" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TranslationEntry_Translation" Association="Self.FK_TranslationEntry_Translation">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="TranslationEntry" EntitySet="TranslationEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tree_Translation" Association="Self.FK_Tree_Translation">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="Tree" EntitySet="Trees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Translation" Association="Self.FK_User_Translation">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Translation1" Association="Self.FK_User_Translation1">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Translation2" Association="Self.FK_User_Translation2">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Week_Translation" Association="Self.FK_Week_Translation">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="Week" EntitySet="Weeks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeekDay_Translation" Association="Self.FK_WeekDay_Translation">
+            <End Role="Translation" EntitySet="Translations" />
+            <End Role="WeekDay" EntitySet="WeekDays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TranslationTextEntry_TranslationText" Association="Self.FK_TranslationTextEntry_TranslationText">
+            <End Role="TranslationText" EntitySet="TranslationTexts" />
+            <End Role="TranslationTextEntry" EntitySet="TranslationTextEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRating_User" Association="Self.FK_UserRating_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRating" EntitySet="UserRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRating_User1" Association="Self.FK_UserRating_User1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRating" EntitySet="UserRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRequest_User" Association="Self.FK_UserRequest_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRequest" EntitySet="UserRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_User" Association="Self.FK_Worker_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Worker" EntitySet="Workers" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -569,25 +2516,18 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="UniversityModelStoreContainer" CdmEntityContainer="UniversityEntities">
           <EntitySetMapping Name="Ambions">
-            <EntityTypeMapping TypeName="UniversityModel.Ambions">
-              <MappingFragment StoreEntitySet="Ambions">
+            <EntityTypeMapping TypeName="UniversityModel.Ambion">
+              <MappingFragment StoreEntitySet="Ambion">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
                 <ScalarProperty Name="NameT" ColumnName="NameT" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ArticleCategories">
-            <EntityTypeMapping TypeName="UniversityModel.ArticleCategories">
-              <MappingFragment StoreEntitySet="ArticleCategories">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="NameT" ColumnName="NameT" />
+                <ScalarProperty Name="ManagerWorkerId" ColumnName="ManagerWorkerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Articles">
-            <EntityTypeMapping TypeName="UniversityModel.Articles">
-              <MappingFragment StoreEntitySet="Articles">
+            <EntityTypeMapping TypeName="UniversityModel.Article">
+              <MappingFragment StoreEntitySet="Article">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -602,19 +2542,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BookCategories">
-            <EntityTypeMapping TypeName="UniversityModel.BookCategories">
-              <MappingFragment StoreEntitySet="BookCategories">
+          <EntitySetMapping Name="ArticleCategories">
+            <EntityTypeMapping TypeName="UniversityModel.ArticleCategory">
+              <MappingFragment StoreEntitySet="ArticleCategory">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NameT" ColumnName="NameT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Books">
-            <EntityTypeMapping TypeName="UniversityModel.Books">
-              <MappingFragment StoreEntitySet="Books">
+            <EntityTypeMapping TypeName="UniversityModel.Book">
+              <MappingFragment StoreEntitySet="Book">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
                 <ScalarProperty Name="StoredDateTime" ColumnName="StoredDateTime" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="NameT" ColumnName="NameT" />
@@ -622,9 +2562,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="BookCategories">
+            <EntityTypeMapping TypeName="UniversityModel.BookCategory">
+              <MappingFragment StoreEntitySet="BookCategory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NameT" ColumnName="NameT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Classrooms">
-            <EntityTypeMapping TypeName="UniversityModel.Classrooms">
-              <MappingFragment StoreEntitySet="Classrooms">
+            <EntityTypeMapping TypeName="UniversityModel.Classroom">
+              <MappingFragment StoreEntitySet="Classroom">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NameT" ColumnName="NameT" />
                 <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
@@ -633,8 +2581,8 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Courses">
-            <EntityTypeMapping TypeName="UniversityModel.Courses">
-              <MappingFragment StoreEntitySet="Courses">
+            <EntityTypeMapping TypeName="UniversityModel.Course">
+              <MappingFragment StoreEntitySet="Course">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="SpecializationId" ColumnName="SpecializationId" />
                 <ScalarProperty Name="StartYear" ColumnName="StartYear" />
@@ -642,107 +2590,120 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Facultyes">
-            <EntityTypeMapping TypeName="UniversityModel.Facultyes">
-              <MappingFragment StoreEntitySet="Facultyes">
+          <EntitySetMapping Name="Faculties">
+            <EntityTypeMapping TypeName="UniversityModel.Faculty">
+              <MappingFragment StoreEntitySet="Faculty">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="DekanStaffId" ColumnName="DekanStaffId" />
+                <ScalarProperty Name="DekanWorkerId" ColumnName="DekanWorkerId" />
                 <ScalarProperty Name="NameT" ColumnName="NameT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Files">
-            <EntityTypeMapping TypeName="UniversityModel.Files">
-              <MappingFragment StoreEntitySet="Files">
+            <EntityTypeMapping TypeName="UniversityModel.File">
+              <MappingFragment StoreEntitySet="File">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
                 <ScalarProperty Name="StoredDateTime" ColumnName="StoredDateTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="IcoFiles">
-            <EntityTypeMapping TypeName="UniversityModel.IcoFiles">
-              <MappingFragment StoreEntitySet="IcoFiles">
+          <EntitySetMapping Name="Icons">
+            <EntityTypeMapping TypeName="UniversityModel.Icon">
+              <MappingFragment StoreEntitySet="Icon">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Languages">
-            <EntityTypeMapping TypeName="UniversityModel.Languages">
+            <EntityTypeMapping TypeName="UniversityModel.Language">
               <MappingFragment StoreEntitySet="Languages">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="NameShort" ColumnName="NameShort" />
-                <ScalarProperty Name="NameOriginal" ColumnName="NameOriginal" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IconId" ColumnName="IconId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Lessons">
-            <EntityTypeMapping TypeName="UniversityModel.Lessons">
-              <MappingFragment StoreEntitySet="Lessons">
+            <EntityTypeMapping TypeName="UniversityModel.Lesson">
+              <MappingFragment StoreEntitySet="Lesson">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CourseId" ColumnName="CourseId" />
                 <ScalarProperty Name="ProfessorId" ColumnName="ProfessorId" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Semester" ColumnName="Semester" />
-                <ScalarProperty Name="Week" ColumnName="Week" />
-                <ScalarProperty Name="WeekDay" ColumnName="WeekDay" />
+                <ScalarProperty Name="WeekId" ColumnName="WeekId" />
+                <ScalarProperty Name="WeekDayId" ColumnName="WeekDayId" />
                 <ScalarProperty Name="Hour" ColumnName="Hour" />
                 <ScalarProperty Name="ClassroomId" ColumnName="ClassroomId" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Links">
+            <EntityTypeMapping TypeName="UniversityModel.Link">
+              <MappingFragment StoreEntitySet="Link">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="OptionsJSON" ColumnName="OptionsJSON" />
+                <ScalarProperty Name="ExternalUrl" ColumnName="ExternalUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuItems">
+            <EntityTypeMapping TypeName="UniversityModel.MenuItem">
+              <MappingFragment StoreEntitySet="MenuItem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NameT" ColumnName="NameT" />
+                <ScalarProperty Name="LinkId" ColumnName="LinkId" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pictures">
-            <EntityTypeMapping TypeName="UniversityModel.Pictures">
-              <MappingFragment StoreEntitySet="Pictures">
+            <EntityTypeMapping TypeName="UniversityModel.Picture">
+              <MappingFragment StoreEntitySet="Picture">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
                 <ScalarProperty Name="AltT" ColumnName="AltT" />
                 <ScalarProperty Name="StoredDateTime" ColumnName="StoredDateTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Professors">
-            <EntityTypeMapping TypeName="UniversityModel.Professors">
-              <MappingFragment StoreEntitySet="Professors">
+            <EntityTypeMapping TypeName="UniversityModel.Professor">
+              <MappingFragment StoreEntitySet="Professor">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="WorkerId" ColumnName="WorkerId" />
                 <ScalarProperty Name="DegreeTree" ColumnName="DegreeTree" />
+                <ScalarProperty Name="AmbionId" ColumnName="AmbionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RatingCriteria">
-            <EntityTypeMapping TypeName="UniversityModel.RatingCriteria">
-              <MappingFragment StoreEntitySet="RatingCriteria">
+          <EntitySetMapping Name="RatingCriterions">
+            <EntityTypeMapping TypeName="UniversityModel.RatingCriterion">
+              <MappingFragment StoreEntitySet="RatingCriterion">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NameT" ColumnName="NameT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Specializations">
-            <EntityTypeMapping TypeName="UniversityModel.Specializations">
-              <MappingFragment StoreEntitySet="Specializations">
+            <EntityTypeMapping TypeName="UniversityModel.Specialization">
+              <MappingFragment StoreEntitySet="Specialization">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
                 <ScalarProperty Name="NameT" ColumnName="NameT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Staff">
-            <EntityTypeMapping TypeName="UniversityModel.Staff">
-              <MappingFragment StoreEntitySet="Staff">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Students">
-            <EntityTypeMapping TypeName="UniversityModel.Students">
-              <MappingFragment StoreEntitySet="Students">
+            <EntityTypeMapping TypeName="UniversityModel.Student">
+              <MappingFragment StoreEntitySet="Student">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="CourseId" ColumnName="CourseId" />
@@ -752,8 +2713,8 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Subjects">
-            <EntityTypeMapping TypeName="UniversityModel.Subjects">
-              <MappingFragment StoreEntitySet="Subjects">
+            <EntityTypeMapping TypeName="UniversityModel.Subject">
+              <MappingFragment StoreEntitySet="Subject">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NameT" ColumnName="NameT" />
                 <ScalarProperty Name="ShortNameT" ColumnName="ShortNameT" />
@@ -761,26 +2722,40 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Translations">
-            <EntityTypeMapping TypeName="UniversityModel.Translations">
-              <MappingFragment StoreEntitySet="Translations">
+            <EntityTypeMapping TypeName="UniversityModel.Translation">
+              <MappingFragment StoreEntitySet="Translation">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Number" ColumnName="Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TranslationEntries">
+            <EntityTypeMapping TypeName="UniversityModel.TranslationEntry">
+              <MappingFragment StoreEntitySet="TranslationEntry">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TranslationId" ColumnName="TranslationId" />
                 <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TranslationsText">
-            <EntityTypeMapping TypeName="UniversityModel.TranslationsText">
-              <MappingFragment StoreEntitySet="TranslationsText">
+          <EntitySetMapping Name="TranslationTexts">
+            <EntityTypeMapping TypeName="UniversityModel.TranslationText">
+              <MappingFragment StoreEntitySet="TranslationText">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Number" ColumnName="Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TranslationTextEntries">
+            <EntityTypeMapping TypeName="UniversityModel.TranslationTextEntry">
+              <MappingFragment StoreEntitySet="TranslationTextEntry">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TranslationTextId" ColumnName="TranslationTextId" />
                 <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tree">
+          <EntitySetMapping Name="Trees">
             <EntityTypeMapping TypeName="UniversityModel.Tree">
               <MappingFragment StoreEntitySet="Tree">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -788,32 +2763,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserRating">
-            <EntityTypeMapping TypeName="UniversityModel.UserRating">
-              <MappingFragment StoreEntitySet="UserRating">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
-                <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
-                <ScalarProperty Name="CriterionId" ColumnName="CriterionId" />
-                <ScalarProperty Name="RatePercent" ColumnName="RatePercent" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserRequests">
-            <EntityTypeMapping TypeName="UniversityModel.UserRequests">
-              <MappingFragment StoreEntitySet="UserRequests">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="RequestDateTime" ColumnName="RequestDateTime" />
-                <ScalarProperty Name="RequestUrl" ColumnName="RequestUrl" />
-                <ScalarProperty Name="Ip" ColumnName="Ip" />
-                <ScalarProperty Name="Browser" ColumnName="Browser" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="UniversityModel.Users">
-              <MappingFragment StoreEntitySet="Users">
+            <EntityTypeMapping TypeName="UniversityModel.User">
+              <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -826,19 +2778,52 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="WeekDays">
-            <EntityTypeMapping TypeName="UniversityModel.WeekDays">
-              <MappingFragment StoreEntitySet="WeekDays">
+          <EntitySetMapping Name="UserRatings">
+            <EntityTypeMapping TypeName="UniversityModel.UserRating">
+              <MappingFragment StoreEntitySet="UserRating">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
+                <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
+                <ScalarProperty Name="CriterionId" ColumnName="CriterionId" />
+                <ScalarProperty Name="RatePercent" ColumnName="RatePercent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRequests">
+            <EntityTypeMapping TypeName="UniversityModel.UserRequest">
+              <MappingFragment StoreEntitySet="UserRequest">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RequestDateTime" ColumnName="RequestDateTime" />
+                <ScalarProperty Name="RequestUrl" ColumnName="RequestUrl" />
+                <ScalarProperty Name="Ip" ColumnName="Ip" />
+                <ScalarProperty Name="Browser" ColumnName="Browser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Weeks">
+            <EntityTypeMapping TypeName="UniversityModel.Week">
+              <MappingFragment StoreEntitySet="Week">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NameT" ColumnName="NameT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Weeks">
-            <EntityTypeMapping TypeName="UniversityModel.Weeks">
-              <MappingFragment StoreEntitySet="Weeks">
+          <EntitySetMapping Name="WeekDays">
+            <EntityTypeMapping TypeName="UniversityModel.WeekDay">
+              <MappingFragment StoreEntitySet="WeekDay">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NameT" ColumnName="NameT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workers">
+            <EntityTypeMapping TypeName="UniversityModel.Worker">
+              <MappingFragment StoreEntitySet="Worker">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -856,7 +2841,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

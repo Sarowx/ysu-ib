@@ -16,5 +16,7 @@ namespace YSUIB.Models.Data
     {
         public long Id { get; set; }
         public long ValueT { get; set; }
+    
+        public virtual Translation ValueTranslation { get; set; }
     }
 }

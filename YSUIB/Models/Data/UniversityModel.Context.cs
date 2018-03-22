@@ -25,32 +25,36 @@ namespace YSUIB.Models.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Ambions> Ambions { get; set; }
-        public virtual DbSet<ArticleCategories> ArticleCategories { get; set; }
-        public virtual DbSet<Articles> Articles { get; set; }
-        public virtual DbSet<BookCategories> BookCategories { get; set; }
-        public virtual DbSet<Books> Books { get; set; }
-        public virtual DbSet<Classrooms> Classrooms { get; set; }
-        public virtual DbSet<Courses> Courses { get; set; }
-        public virtual DbSet<Facultyes> Facultyes { get; set; }
-        public virtual DbSet<Files> Files { get; set; }
-        public virtual DbSet<IcoFiles> IcoFiles { get; set; }
-        public virtual DbSet<Languages> Languages { get; set; }
-        public virtual DbSet<Lessons> Lessons { get; set; }
-        public virtual DbSet<Pictures> Pictures { get; set; }
-        public virtual DbSet<Professors> Professors { get; set; }
-        public virtual DbSet<RatingCriteria> RatingCriteria { get; set; }
-        public virtual DbSet<Specializations> Specializations { get; set; }
-        public virtual DbSet<Staff> Staff { get; set; }
-        public virtual DbSet<Students> Students { get; set; }
-        public virtual DbSet<Subjects> Subjects { get; set; }
-        public virtual DbSet<Translations> Translations { get; set; }
-        public virtual DbSet<TranslationsText> TranslationsText { get; set; }
-        public virtual DbSet<Tree> Tree { get; set; }
-        public virtual DbSet<UserRating> UserRating { get; set; }
-        public virtual DbSet<UserRequests> UserRequests { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<WeekDays> WeekDays { get; set; }
-        public virtual DbSet<Weeks> Weeks { get; set; }
+        public virtual DbSet<Ambion> Ambions { get; set; }
+        public virtual DbSet<Article> Articles { get; set; }
+        public virtual DbSet<ArticleCategory> ArticleCategories { get; set; }
+        public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<BookCategory> BookCategories { get; set; }
+        public virtual DbSet<Classroom> Classrooms { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<Faculty> Faculties { get; set; }
+        public virtual DbSet<File> Files { get; set; }
+        public virtual DbSet<Icon> Icons { get; set; }
+        public virtual DbSet<Language> Languages { get; set; }
+        public virtual DbSet<Lesson> Lessons { get; set; }
+        public virtual DbSet<Link> Links { get; set; }
+        public virtual DbSet<MenuItem> MenuItems { get; set; }
+        public virtual DbSet<Picture> Pictures { get; set; }
+        public virtual DbSet<Professor> Professors { get; set; }
+        public virtual DbSet<RatingCriterion> RatingCriterions { get; set; }
+        public virtual DbSet<Specialization> Specializations { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<Subject> Subjects { get; set; }
+        public virtual DbSet<Translation> Translations { get; set; }
+        public virtual DbSet<TranslationEntry> TranslationEntries { get; set; }
+        public virtual DbSet<TranslationText> TranslationTexts { get; set; }
+        public virtual DbSet<TranslationTextEntry> TranslationTextEntries { get; set; }
+        public virtual DbSet<Tree> Trees { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserRating> UserRatings { get; set; }
+        public virtual DbSet<UserRequest> UserRequests { get; set; }
+        public virtual DbSet<Week> Weeks { get; set; }
+        public virtual DbSet<WeekDay> WeekDays { get; set; }
+        public virtual DbSet<Worker> Workers { get; set; }
     }
 }

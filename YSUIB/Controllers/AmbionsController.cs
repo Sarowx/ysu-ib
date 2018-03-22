@@ -6,22 +6,21 @@ using System.Web.Mvc;
 
 namespace YSUIB.Controllers
 {
-    public class HomeController : Controller
+    public class AmbionsController : Controller
     {
+        // GET: Ambion
         public ActionResult Index()
         {
             return View();
         }
-
-        public ActionResult PartialWelcomeSection()
+        public ActionResult PartialSidebar()
         {
             return PartialView();
         }
-        
-        public ActionResult PartialSlideshow()
+        public ActionResult PartialList()
         {
+
             return PartialView();
         }
-
     }
 }

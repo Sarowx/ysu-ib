@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +45,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -117,12 +126,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -169,72 +172,87 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AmbionsController.cs" />
+    <Compile Include="Controllers\ArticlesController.cs" />
+    <Compile Include="Controllers\FacultiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LibraryController.cs" />
+    <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Data\Ambions.cs">
+    <Compile Include="Models\Data\Ambion.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\ArticleCategories.cs">
+    <Compile Include="Models\Data\Article.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Articles.cs">
+    <Compile Include="Models\Data\ArticleCategory.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\BookCategories.cs">
+    <Compile Include="Models\Data\Book.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Books.cs">
+    <Compile Include="Models\Data\BookCategory.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Classrooms.cs">
+    <Compile Include="Models\Data\Classroom.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Courses.cs">
+    <Compile Include="Models\Data\Course.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Facultyes.cs">
+    <Compile Include="Models\Data\Faculty.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Files.cs">
+    <Compile Include="Models\Data\File.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\IcoFiles.cs">
+    <Compile Include="Models\Data\Icon.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Languages.cs">
+    <Compile Include="Models\Data\Language.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Lessons.cs">
+    <Compile Include="Models\Data\Lesson.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Pictures.cs">
+    <Compile Include="Models\Data\Link.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Professors.cs">
+    <Compile Include="Models\Data\MenuItem.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\RatingCriteria.cs">
+    <Compile Include="Models\Data\Picture.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Specializations.cs">
+    <Compile Include="Models\Data\Professor.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Staff.cs">
+    <Compile Include="Models\Data\RatingCriterion.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Students.cs">
+    <Compile Include="Models\Data\Specialization.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Subjects.cs">
+    <Compile Include="Models\Data\Student.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Translations.cs">
+    <Compile Include="Models\Data\Subject.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\TranslationsText.cs">
+    <Compile Include="Models\Data\Translation.cs">
+      <DependentUpon>UniversityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Data\TranslationEntry.cs">
+      <DependentUpon>UniversityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Data\TranslationText.cs">
+      <DependentUpon>UniversityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Data\TranslationTextEntry.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Data\Tree.cs">
@@ -255,23 +273,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UniversityModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Data\User.cs">
+      <DependentUpon>UniversityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Data\UserRating.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\UserRequests.cs">
+    <Compile Include="Models\Data\UserRequest.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Users.cs">
+    <Compile Include="Models\Data\Week.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\WeekDays.cs">
+    <Compile Include="Models\Data\WeekDay.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Weeks.cs">
+    <Compile Include="Models\Data\Worker.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -323,6 +342,7 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="App_Code\Shared.cshtml" />
     <EntityDeploy Include="Models\Data\UniversityModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>UniversityModel.Designer.cs</LastGenOutput>
@@ -330,7 +350,6 @@
     <Content Include="Models\Data\UniversityModel.edmx.diagram">
       <DependentUpon>UniversityModel.edmx</DependentUpon>
     </Content>
-    <Content Include="App_Code\Shared.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -344,7 +363,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -356,15 +377,27 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Faculty.cshtml" />
-    <Content Include="Views\Home\News.cshtml" />
-    <Content Include="Views\Home\Facultyes.cshtml" />
-    <Content Include="Views\Home\Staff.cshtml" />
-    <Content Include="Views\Home\Applicant.cshtml" />
+    <Content Include="Views\Faculties\Faculty.cshtml" />
+    <Content Include="Views\Articles\PartialSection.cshtml" />
+    <Content Include="Views\Faculties\PartialSidebar.cshtml" />
+    <Content Include="Views\Faculties\PartialList.cshtml" />
+    <Content Include="Views\Ambions\PartialList.cshtml" />
+    <Content Include="Views\About\PartialSection.cshtml" />
+    <Content Include="Views\Home\PartialWelcomeSection.cshtml" />
+    <Content Include="Views\Account\PartialSidebar.cshtml" />
+    <Content Include="Views\Home\PartialSlideshow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\account\" />
+    <Folder Include="Content\ambions\" />
+    <Folder Include="Content\articles\" />
+    <Folder Include="Content\faculties\" />
     <Folder Include="Content\font-awesome\" />
+    <Folder Include="Content\library\" />
+    <Folder Include="Content\shared\" />
+    <Folder Include="Views\Library\" />
+    <Folder Include="Views\Staff\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

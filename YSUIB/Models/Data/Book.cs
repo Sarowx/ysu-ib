@@ -12,16 +12,18 @@ namespace YSUIB.Models.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class UserRating
+    public partial class Book
     {
         public long Id { get; set; }
-        public long FromUserId { get; set; }
-        public long ToUserId { get; set; }
-        public long CriterionId { get; set; }
-        public double RatePercent { get; set; }
+        public long FileId { get; set; }
+        public Nullable<System.DateTime> StoredDateTime { get; set; }
+        public long CategoryId { get; set; }
+        public long NameT { get; set; }
+        public Nullable<long> DescribtionTT { get; set; }
     
-        public virtual RatingCriterion RatingCriterion { get; set; }
-        public virtual User UserFrom { get; set; }
-        public virtual User UserTo { get; set; }
+        public virtual BookCategory BookCategory { get; set; }
+        public virtual File File { get; set; }
+        public virtual Translation NameTranslation { get; set; }
+        public virtual TranslationText DescribtionTranslation { get; set; }
     }
 }
