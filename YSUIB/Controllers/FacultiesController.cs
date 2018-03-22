@@ -9,14 +9,17 @@ namespace YSUIB.Controllers
 {
     public class FacultiesController : Controller
     {
+        UniversityEntities db = new UniversityEntities();
+
         // GET: Faculty
         public ActionResult Index()
         {
-            return View();
+            var model = db.Faculties.ToList();
+
+            return View(model);
         }
         public ActionResult PartialSidebar()
         {
-            var db = new UniversityEntities();
             var model = db.Faculties.ToList();
 
             return PartialView(model);

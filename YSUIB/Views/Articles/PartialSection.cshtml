@@ -1,59 +1,71 @@
-﻿
+﻿@using YSUIB.Models.Data;
+
+@model List<Article>
+
+
 <div class="row">
-    <div class="col-md-3">
-        <div class="w3-bar-block">
-            <div class="thumbnail">
-                <div class="thumb">
-                    <div class="thumb-image">
-                        <a href="#"><img src="~/img/school-2051712_960_720.jpg" alt=""></a>
-                    </div>
-                    <div class=" more">
-                        <em>Lorem Ipsum-ը տպագրության և տպագրական արդյունաբերության համար նախատեսված մոդելային տեքստ է: </em>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="w3-bar-block">
-            <div class="thumbnail">
-                <div class="thumb">
-                    <div class="thumb-image">
-                        <a href="#"><img src="~/img/Womens-Bible-Study-Fall-2016-Web-Background.jpg" alt=""></a>
-                    </div>
-                    <div class=" more">
-                        <em>Lorem Ipsum-ը տպագրության և տպագրական արդյունաբերության համար նախատեսված մոդելային տեքստ է:</em>
+    @foreach (var article in Model)
+    {
+        <div class="col-md-3">
+            <div class="w3-bar-block">
+                <div class="thumbnail">
+                    <div class="thumb">
+                        <div class="thumb-image">
+                            <a href="#"><img src="@("~" + article.Picture.File.Path)" alt="@article.TitleTranslation.Value"></a>
+                        </div>
+                        <div class=" more">
+                            <em>@article.DescribtionTranslation.Value</em>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-3">
-        <div class="w3-bar-block">
-            <div class="thumbnail">
-                <div class="thumb">
-                    <div class="thumb-image">
-                        <a href="#"><img src="~/img/school-2051712_960_720.jpg" alt=""></a>
-                    </div>
-                    <div class=" more">
-                        <em>Lorem Ipsum-ը տպագրության և տպագրական արդյունաբերության համար նախատեսված մոդելային տեքստ է:</em>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="w3-bar-block">
-            <div class="thumbnail">
-                <div class="thumb">
-                    <div class="thumb-image">
-                        <a href="#"><img src="~/img/maxresdefault.jpg" alt=""></a>
-                    </div>
-                    <div class=" more">
-                        <em>Lorem Ipsum-ը տպագրության և տպագրական արդյունաբերության համար նախատեսված մոդելային տեքստ է:</em>
+    }
+
+
+
+    @*<div class="col-md-3">
+            <div class="w3-bar-block">
+                <div class="thumbnail">
+                    <div class="thumb">
+                        <div class="thumb-image">
+                            <a href="#"><img src="~/img/Womens-Bible-Study-Fall-2016-Web-Background.jpg" alt=""></a>
+                        </div>
+                        <div class=" more">
+                            <em>Lorem Ipsum-ը տպագրության և տպագրական արդյունաբերության համար նախատեսված մոդելային տեքստ է:</em>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="col-md-3">
+            <div class="w3-bar-block">
+                <div class="thumbnail">
+                    <div class="thumb">
+                        <div class="thumb-image">
+                            <a href="#"><img src="~/img/school-2051712_960_720.jpg" alt=""></a>
+                        </div>
+                        <div class=" more">
+                            <em>Lorem Ipsum-ը տպագրության և տպագրական արդյունաբերության համար նախատեսված մոդելային տեքստ է:</em>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="w3-bar-block">
+                <div class="thumbnail">
+                    <div class="thumb">
+                        <div class="thumb-image">
+                            <a href="#"><img src="~/img/maxresdefault.jpg" alt=""></a>
+                        </div>
+                        <div class=" more">
+                            <em>Lorem Ipsum-ը տպագրության և տպագրական արդյունաբերության համար նախատեսված մոդելային տեքստ է:</em>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
 </div>

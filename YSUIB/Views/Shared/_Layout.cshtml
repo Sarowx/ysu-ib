@@ -22,6 +22,8 @@
         @Scripts.Render(Shared.getUniqueArray(ViewBag.Scripts))
     }
 
+    @RenderSection("Scripts",false)
+
 </head>
 <body>
 
@@ -29,14 +31,7 @@
         <div class="top">
             <nav class="navbar navbar-inverse">
                 <div class="container">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Գլխավոր","Index","Home")</li>
-                        <li><a href="http://www.ysu.am/main/">ԵՊՀ</a></li>
-                        <li>@Html.ActionLink("Ֆակուլտետներ", "Facultyes", "Home")</li>
-                        <li>@Html.ActionLink("Նորություններ", "News", "Home")</li>
-                        <li>@Html.ActionLink("Դիմորդ", "Applicant", "Home")</li>
-                        <li>@Html.ActionLink("Աշխատակազմ", "Staff", "Home")</li>
-                    </ul>
+                    @Html.Action("PartialNavbarList", "Shared");
                     <form class="navbar-form navbar-right" name="form1">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search">

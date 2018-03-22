@@ -12,7 +12,7 @@ namespace YSUIB.Models.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class TranslationText
+    public partial class TranslationText : Translator
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TranslationText()
@@ -24,5 +24,12 @@ namespace YSUIB.Models.Data
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TranslationTextEntry> Entries { get; set; }
+        public string Value
+        {
+            get
+            {
+                return base.GetValueFromTranslation(this);
+            }
+        }
     }
 }

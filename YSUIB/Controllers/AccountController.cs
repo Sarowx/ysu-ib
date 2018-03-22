@@ -16,7 +16,7 @@ namespace YSUIB.Controllers
 
         public ActionResult PartialSidebar()
         {
-            return PartialView();
+            return PartialView("PartialSidebarLogin",null);
         }
     }
 }

@@ -1,0 +1,16 @@
+﻿@model List<YSUIB.Models.Data.MenuItem>
+
+<ul class="nav navbar-nav">
+
+    @foreach (var item in Model)
+    {
+        <li>@Html.ActionLink(item.NameTranslation.Value, item.Link.Action, item.Link.Controller, Json.Decode(item.Link.OptionsJSON) as Object)</li>
+    }
+
+    <li>@Html.ActionLink("Գլխավոր", "Index", "Home")</li>
+    <li><a href="http://www.ysu.am/main/">ԵՊՀ</a></li>
+    <li>@Html.ActionLink("Ֆակուլտետներ", "Facultyes", "Home")</li>
+    <li>@Html.ActionLink("Նորություններ", "News", "Home")</li>
+    <li>@Html.ActionLink("Դիմորդ", "Applicant", "Home")</li>
+    <li>@Html.ActionLink("Աշխատակազմ", "Staff", "Home")</li>
+</ul>

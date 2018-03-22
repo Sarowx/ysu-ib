@@ -178,6 +178,7 @@
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\FacultiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\LibraryController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Global.asax.cs">
@@ -243,6 +244,7 @@
     <Compile Include="Models\Data\Subject.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Data\Translatable.cs" />
     <Compile Include="Models\Data\Translation.cs">
       <DependentUpon>UniversityModel.tt</DependentUpon>
     </Compile>
@@ -298,6 +300,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\w3.css" />
+    <Content Include="DB Scripts\UniversityDB.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -384,8 +387,11 @@
     <Content Include="Views\Ambions\PartialList.cshtml" />
     <Content Include="Views\About\PartialSection.cshtml" />
     <Content Include="Views\Home\PartialWelcomeSection.cshtml" />
-    <Content Include="Views\Account\PartialSidebar.cshtml" />
+    <Content Include="Views\Account\PartialSidebarLogin.cshtml" />
     <Content Include="Views\Home\PartialSlideshow.cshtml" />
+    <Content Include="Views\Articles\Article.cshtml" />
+    <Content Include="Views\Shared\PartialNavbarList.cshtml" />
+    <Content Include="Views\Faculties\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -396,6 +402,7 @@
     <Folder Include="Content\font-awesome\" />
     <Folder Include="Content\library\" />
     <Folder Include="Content\shared\" />
+    <Folder Include="Controllers\admin\" />
     <Folder Include="Views\Library\" />
     <Folder Include="Views\Staff\" />
   </ItemGroup>
