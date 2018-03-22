@@ -12,16 +12,14 @@ namespace YSUIB.Models.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class UserRating
+    public partial class TranslationEntry
     {
         public long Id { get; set; }
-        public long FromUserId { get; set; }
-        public long ToUserId { get; set; }
-        public long CriterionId { get; set; }
-        public double RatePercent { get; set; }
+        public long TranslationId { get; set; }
+        public long LanguageId { get; set; }
+        public string Value { get; set; }
     
-        public virtual RatingCriterion RatingCriterion { get; set; }
-        public virtual User UserFrom { get; set; }
-        public virtual User UserTo { get; set; }
+        public virtual Language Language { get; set; }
+        public virtual Translation Translation { get; set; }
     }
 }

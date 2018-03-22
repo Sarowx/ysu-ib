@@ -1,0 +1,23 @@
+﻿@using YSUIB.Models.Data
+
+@model List<Faculty>
+
+<div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;ՖԱԿՈՒԼՏԵՏՆԵՐ</a>
+
+    @foreach (var faculty in Model)
+    {
+        <div class="dropdown">
+            <div class="dropbtn">
+                <a href="./bnag.html" class="w3-bar-item w3-button w3-padding">
+                <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;@faculty.NameTranslation.Entries.First().Value
+                <i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>
+            </div>
+            <div class="dropdown-content">
+                <a href="#">Բաժիններ</a>
+                <a href="#">Ամբիոններ</a>
+            </div>
+
+        </div>
+    }
+</div>

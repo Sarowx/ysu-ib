@@ -4,21 +4,7 @@
 
 <div class=" eph">
     <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="logo">
-                    <img src="~/img/logo-hy.png" alt="">
-                </div>
-            </div>
-            <div class="col-md-6 ysu">
-                <h4>Բարի գալուստ Երևանի պետական համալսարանի <p class="text-center">Իջևանի մասնաճյուղ</p></h4>
-            </div>
-            <div class="col-md-3">
-                <div class="logo2">
-                    <img src="~/img/logo_ysu.png" alt="">
-                </div>
-            </div>
-        </div>
+        @Html.Action("PartialWelcomeSection","Home")
     </div>
 </div>
 
@@ -27,49 +13,9 @@
         <div class="row">
             <div class="content">
                 <div class="col-lg-3 ">
-                    <div class="w3-bar-block">
-                        <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-book" aria-hidden="true"></i>&nbsp; ՖԱԿՈՒԼՏԵՏՆԵՐ</a>
-                        <div class="dropdown">
-                            <div class="dropbtn">
-                                <a href="./bnag.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-flask" aria-hidden="true"></i>&nbsp;ԲՆԱԿԱՆ ԳԻՏՈՒԹՅՈՒՆՆԵՐ<i class="fa fa-caret-down pull-right" aria-hidden="true"></i></a>
-                            </div>
-                            <div class="dropdown-content">
-                                <a href="#">Բաժիններ</a>
-                                <a href="#">Ամբիոններ</a>
-                            </div>
 
-                        </div>
-                        <div class="dropdown">
-                            <div class="dropbtn">
-                                <a href="./humanitar.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-graduation-cap" aria-hidden="true"></i>&nbsp;ՀՈՒՄԱՆԻՏԱՐ ԳԻՏՈՒԹՅՈՒՆՆԵՐ<i class="fa fa-caret-down pull-right" aria-hidden="true"></i></a>
-                            </div>
-                            <div class="dropdown-content">
-                                <a href="#">Բաժիններ</a>
-                                <a href="#">Ամբիոններ</a>
-                            </div>
+                    @Html.Action("PartialSidebar","Faculties")
 
-                        </div>
-                        <div class="dropdown">
-                            <div class="dropbtn">
-                                <a href="./tntes.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bar-chart" aria-hidden="true"></i>&nbsp;ՏՆՏԵՍԱԳԻՏՈՒԹՅՈՒՆ<i class="fa fa-caret-down pull-right" aria-hidden="true"></i></a>
-                            </div>
-                            <div class="dropdown-content">
-                                <a href="#">Բաժիններ</a>
-                                <a href="#">Ամբիոններ</a>
-                            </div>
-
-                        </div>
-                        <div class="dropdown">
-                            <div class="dropbtn">
-                                <a href="./kirarakan.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-paint-brush" aria-hidden="true"></i>&nbsp; ԿԻՐԱՌԱԿԱՆ ԱՐՎԵՍՏ<i class="fa fa-caret-down pull-right" aria-hidden="true"></i></a>
-                            </div>
-                            <div class="dropdown-content">
-                                <a href="#">Բաժիններ</a>
-                                <a href="#">Ամբիոններ</a>
-                            </div>
-
-                        </div>
-                    </div>
                     <div class="w3-bar-block">
                         <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-book" aria-hidden="true"></i>&nbsp; ԵՊՀ ԻՄ-Ի ՄԱՍԻՆ</a>
                         <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp; Դիմորդ</a>
@@ -77,36 +23,10 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="slideshow-container">
-                        <div class="mySlides fade">
-                            <img src="~/img/img_1927-copy.jpg" style="">
-                        </div>
-                        <div class="mySlides fade">
-                            <img src="~/img/maxresdefault.jpg" style="">
-                        </div>
-                        <div class="mySlides fade">
-                            <img src="~/img/529135531.jpg" style="">
-                        </div>
-                    </div>
+                    @Html.Action("PartialSlideshow","Home")
                 </div>
                 <div class="col-lg-3 ">
-                    <form action="/action_page.php">
-                        <div class="form-title w3-bar-block">
-                            <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp; ՄՈՒՏՔ</a>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Էլ․ հասցե:</label>
-                            <input type="email" class="form-control" id="email" placeholder="test@mail.ru" name="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="pwd">Գաղտնաբառ:</label>
-                            <input type="password" class="form-control" id="pwd" placeholder="usanogh2018" name="pwd">
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox" name="remember"> Հիշեցնել ինձ</label>
-                        </div>
-                        <button type="submit" class="btn btn-default" onclick="ValidateEmail(document.form1.text1)">Մուտք</button>
-                    </form>
+                    @Html.Action("PartialSidebar","Account")
                     <div class="w3-bar-block">
                         <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-book" aria-hidden="true"></i>&nbsp; ԳՐԱԴԱՐԱՆ</a>
                         <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp; Էլեկտրոնային պաշարներ</a>
@@ -122,122 +42,8 @@
         <div class="text-center">
             <h3>ՆՈՐՈՒԹՅՈՒՆՆԵՐ</h3>
         </div>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="w3-bar-block">
-                    <div class="thumbnail">
-                        <div class="thumb">
-                            <div class="thumb-image">
-                                <a href="#"><img src="~/img/school-2051712_960_720.jpg" alt=""></a>
-                            </div>
-                            <div class=" more">
-                                <em>Lorem Ipsum-ը տպագրության և տպագրական արդյունաբերության համար նախատեսված մոդելային տեքստ է: </em>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="w3-bar-block">
-                    <div class="thumbnail">
-                        <div class="thumb">
-                            <div class="thumb-image">
-                                <a href="#"><img src="~/img/Womens-Bible-Study-Fall-2016-Web-Background.jpg" alt=""></a>
-                            </div>
-                            <div class=" more">
-                                <em>Lorem Ipsum-ը տպագրության և տպագրական արդյունաբերության համար նախատեսված մոդելային տեքստ է:</em>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="w3-bar-block">
-                    <div class="thumbnail">
-                        <div class="thumb">
-                            <div class="thumb-image">
-                                <a href="#"><img src="~/img/school-2051712_960_720.jpg" alt=""></a>
-                            </div>
-                            <div class=" more">
-                                <em>Lorem Ipsum-ը տպագրության և տպագրական արդյունաբերության համար նախատեսված մոդելային տեքստ է:</em>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="w3-bar-block">
-                    <div class="thumbnail">
-                        <div class="thumb">
-                            <div class="thumb-image">
-                                <a href="#"><img src="~/img/maxresdefault.jpg" alt=""></a>
-                            </div>
-                            <div class=" more">
-                                <em>Lorem Ipsum-ը տպագրության և տպագրական արդյունաբերության համար նախատեսված մոդելային տեքստ է:</em>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @Html.Action("PartialSection","Articles",new { order="date",sort="desc"})
     </div>
 </div>
-<div class="container ">
-    <h2 class="text-center our">Մենք ունենք</h2>
 
-    <div class="row sum">
-        <div class="count col-lg-4">
-            <br>
-            <span class="div-count">1200</span>
-            <p class="div-detail">  <i class="fa fa-users" aria-hidden="true"></i>    Ուսանող</p>
-        </div>
-        <div class="count col-lg-4">
-            <br>
-            <span class="div-count">133</span>
-            <p class="div-detail"><i class="fa fa-users" aria-hidden="true"></i>   Դասախոս</p>
-        </div>
-        <div class="count col-lg-4">
-            <br>
-            <span class="div-count">99</span>
-            <p class="div-detail"><i class="fa fa-users" aria-hidden="true"></i>    Աշխատակից</p>
-        </div>
-    </div>
-</div>
-<div class="container cont">
-    <div class="row">
-        <div class="col-md-5">
-            <div class="contact">
-                <div class="col-md-3 ">Հեռ․:</div><div class="col-md-9">(+374) 263 40050, 263 40035</div>
-                <br><br>
-            </div><br>
-            <div class="contact">
-                <div class="col-md-3">Ֆաքս:</div><div class="col-md-9">(+374) 263 32202</div>
-                <br><br>
-            </div><br>
-            <div class="contact">
-                <div class="col-md-3">Էլ-հասցե:</div><div class="col-md-9">ysu_ib@ysu.am, ijevan@ysu.am</div>
-                <br><br>
-            </div><br>
-            <div class="col-md-3">Հասցե:</div><div class="col-md-9">Տավուշի մարզ, ք.Իջևան 4001, Ուսանողական 3</div>
-        </div>
-        <div class="col-md-7 ">
-            <div id="map"></div>
-            <script>
-              function initMap() {
-                var uluru = {lat: 40.8713703, lng: 45.1430799};
-                var map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 15,
-                  center: uluru
-                });
-                var marker = new google.maps.Marker({
-                  position: uluru,
-                  map: map
-                });
-              }
-            </script>
-            <script async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRgwaw5Q4cE3gj_Y2yzQp6IA6Y7jFZCXo&callback=initMap">
-            </script>
-        </div>
-    </div>
-</div>
+@Html.Action("PartialSection","About")

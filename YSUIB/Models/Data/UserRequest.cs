@@ -12,16 +12,15 @@ namespace YSUIB.Models.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class UserRating
+    public partial class UserRequest
     {
         public long Id { get; set; }
-        public long FromUserId { get; set; }
-        public long ToUserId { get; set; }
-        public long CriterionId { get; set; }
-        public double RatePercent { get; set; }
+        public long UserId { get; set; }
+        public System.DateTime RequestDateTime { get; set; }
+        public string RequestUrl { get; set; }
+        public string Ip { get; set; }
+        public string Browser { get; set; }
     
-        public virtual RatingCriterion RatingCriterion { get; set; }
-        public virtual User UserFrom { get; set; }
-        public virtual User UserTo { get; set; }
+        public virtual User User { get; set; }
     }
 }

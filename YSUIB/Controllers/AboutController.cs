@@ -6,22 +6,18 @@ using System.Web.Mvc;
 
 namespace YSUIB.Controllers
 {
-    public class HomeController : Controller
+    public class AboutController : Controller
     {
+        // GET: About
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult PartialWelcomeSection()
+        public ActionResult PartialSection()
         {
-            return PartialView();
-        }
-        
-        public ActionResult PartialSlideshow()
-        {
-            return PartialView();
-        }
 
+            return PartialView();
+        }
     }
 }

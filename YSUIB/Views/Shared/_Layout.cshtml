@@ -55,23 +55,10 @@
                     <img src="~/img/logo-hy.png" alt="">
                 </div>
                 <div class="col-md-3">
-                    <ul class="list-group">
-                        <li class="list-group-item">@Html.ActionLink("ՖԱԿՈՒԼՏԵՏՆԵՐ", "Facultyes", "Home")</li>
-                        <li class="list-group-item">@Html.ActionLink("ԲՆԱԿԱՆ ԳԻՏՈՒԹՅՈՒՆՆԵՐ", "Facultyes", "Home",new { faculty = 1},null)</li>
-                        <li class="list-group-item">@Html.ActionLink("ՀՈՒՄԱՆԻՏԱՐ ԳԻՏՈՒԹՅՈՒՆՆԵՐ", "Facultyes", "Home", new { faculty = 2 }, null)</li>
-                        <li class="list-group-item">@Html.ActionLink("ՏՆՏԵՍԱԳԻՏՈՒԹՅՈՒՆ", "Facultyes", "Home", new { faculty = 3 }, null)</li>
-                        <li class="list-group-item">@Html.ActionLink("ԿԻՐԱՌԱԿԱՆ ԱՐՎԵՍՏ", "Facultyes", "Home", new { faculty = 4 }, null)</li>
-                    </ul>
+                    @Html.Action("PartialList","Faculties")
                 </div>
                 <div class="col-md-3">
-                    <ul class="list-group">
-                        <a href="#"> <li class="list-group-item ">ԱՄԲԻՈՆՆԵՐ </li></a>
-                        <a href="#"><li class="list-group-item">ԲՆԱԿԱՆ ԳԻՏՈՒԹՅՈՒՆՆԵՐ </li></a>
-                        <a href="#"><li class="list-group-item">ՀՈՒՄԱՆԻՏԱՐ ԳԻՏՈՒԹՅՈՒՆՆԵՐ </li></a>
-                        <a href="#"><li class="list-group-item">ՏՆՏԵՍԱԳԻՏՈՒԹՅՈՒՆ </li></a>
-                        <a href="#"><li class="list-group-item">ԿԻՐԱՌԱԿԱՆ ԱՐՎԵՍՏ </li></a>
-
-                    </ul>
+                    @Html.Action("PartialList", "Ambions")
                 </div>
                 <div class="col-md-3">
                     <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
